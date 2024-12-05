@@ -1,3 +1,5 @@
+package GetUsuario;
+
 import Utils.Constantes;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
