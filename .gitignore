@@ -1,0 +1,15 @@
+target
+*.iws
+*.ipr
+*.iml
+.classpath
+.project
+.settings
+.springBeans
+.idea
+.metals
+.vscode
+.bloop
+classes/
+lib/
+rest-assured-all/dependency-reduced-pom.xml
