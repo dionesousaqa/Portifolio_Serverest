@@ -1,16 +1,13 @@
+package GetUsuario;
+
+import GetUsuario.BaseTest;
 import io.restassured.RestAssured;
-import io.restassured.path.json.JsonPath;
-import io.restassured.response.Response;
-import jdk.jfr.RecordingState;
-import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 
-import java.net.ResponseCache;
-
 import static Utils.Utilitarios.*;
 
-public class GetUsuarios extends BaseTest{
+public class GetUsuarios extends BaseTest {
 
 
     @Test
@@ -21,7 +18,6 @@ public class GetUsuarios extends BaseTest{
                         .get()
                    .then()
                         .statusCode(200)
-                        .log().all()
                         .body(QUANTIDADE, Matchers.greaterThan(0))
 
         ;
@@ -35,7 +31,6 @@ public class GetUsuarios extends BaseTest{
                         .get()
                    .then()
                         .statusCode(200)
-                        .log().all()
                         .body(QUANTIDADE, Matchers.is(0))
 
 
@@ -50,7 +45,6 @@ public class GetUsuarios extends BaseTest{
                          .get()
                     .then()
                         .statusCode(200)
-                        .log().all()
                         .body("usuarios._id[0]", Matchers.is("0uxuPY0cbmQhpEz1"))
 
 
@@ -65,7 +59,6 @@ public class GetUsuarios extends BaseTest{
                       .get()
                    .then()
                       .statusCode(200)
-                      .log().all()
                       .body(USUARIOS_NOME, Matchers.everyItem(Matchers.equalTo("Fulano da Silva")))
 
 
@@ -80,7 +73,7 @@ public class GetUsuarios extends BaseTest{
                     .when()
                         .get()
                     .then()
-                        .statusCode(200).log().all()
+                        .statusCode(200)
                         .body(QUANTIDADE, Matchers.is(0))
 
 
@@ -95,7 +88,7 @@ public class GetUsuarios extends BaseTest{
                     .when()
                        .get()
                     .then()
-                       .statusCode(200).log().all()
+                       .statusCode(200)
                        .body( USUARIOS_EMAIL, Matchers.everyItem(Matchers.equalTo("beltrano@qa.com.br")))
 
                 ;
@@ -109,7 +102,7 @@ public class GetUsuarios extends BaseTest{
                    .when()
                        .get()
                    .then()
-                      .statusCode(200).log().all()
+                      .statusCode(200)
                       .body(QUANTIDADE, Matchers.is(0))
 
                 ;
@@ -122,7 +115,7 @@ public class GetUsuarios extends BaseTest{
                     .when()
                        .get()
                     .then()
-                      .statusCode(200).log().all()
+                      .statusCode(200)
                       .body( USUARIOS_ADMINISTRADOR,Matchers.everyItem(Matchers.equalTo("true")))
                 ;
     }
@@ -133,7 +126,7 @@ public class GetUsuarios extends BaseTest{
                     .when()
                        .get()
                     .then()
-                      .statusCode(200).log().all()
+                      .statusCode(200)
                       .body( USUARIOS_ADMINISTRADOR,Matchers.everyItem(Matchers.equalTo("false")))
 
                 ;
