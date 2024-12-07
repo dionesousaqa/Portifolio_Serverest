@@ -24,3 +24,6 @@ jobs:
 
       - name: Test post usuario
         run: mvn test -Dtest=PostUsuarios
+
+      - name: Test Delete usuario
+        run: mvn test -Dtest=DeleteUsuario

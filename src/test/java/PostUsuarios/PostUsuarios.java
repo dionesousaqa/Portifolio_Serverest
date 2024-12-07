@@ -121,11 +121,11 @@ public class PostUsuarios extends BaseTest {
 
     @Test
     public void validandoCampoEmailExistente(){
-     String id = postUsuario("AntonioPereira765@hotmail.com");
+     String id = postUsuario("AntonioPereira7650@hotmail.com");
 
         ObjetosUsuarios objetosUsuarios = new ObjetosUsuarios();
         objetosUsuarios.setAdministrador("true");
-        objetosUsuarios.setEmail("AntonioPereira765@hotmail.com");
+        objetosUsuarios.setEmail("AntonioPereira7650@hotmail.com");
         objetosUsuarios.setNome("Antonio Pereira");
         objetosUsuarios.setPassword("TesteSeguranca");
 
