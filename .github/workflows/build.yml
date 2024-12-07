@@ -19,7 +19,8 @@ jobs:
           java-version: '17'
           cache: maven
       
-      - name: Build with maven
-        run: mvn test
+      - name: Test get usuario
+        run: mvn test -Dtest=GetUsuarios
 
- 
+      - name: Test post usuario
+        run: mvn test -Dtest=PostUsuarios
