@@ -1,4 +1,4 @@
-package GetUsuario;
+package core;
 
 import Utils.Constantes;
 import io.restassured.RestAssured;
