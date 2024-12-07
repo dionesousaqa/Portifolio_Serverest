@@ -1,6 +1,6 @@
 package GetUsuario;
 
-import GetUsuario.BaseTest;
+import core.BaseTest;
 import io.restassured.RestAssured;
 import org.hamcrest.Matchers;
 import org.junit.Test;
