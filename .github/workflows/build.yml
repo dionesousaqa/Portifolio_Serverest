@@ -27,3 +27,6 @@ jobs:
 
       - name: Test Delete usuario
         run: mvn test -Dtest=DeleteUsuario
+
+      - name: Test Put usuario
+        run: mvn test -Dtest=PutUsuario

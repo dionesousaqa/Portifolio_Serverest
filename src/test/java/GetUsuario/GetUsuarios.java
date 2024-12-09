@@ -5,6 +5,9 @@ import io.restassured.RestAssured;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 
+import static Utils.MetodosUltils.gerarEmailUnico;
+import static Utils.TestesUtils.deletUsuario;
+import static Utils.TestesUtils.postUsuario;
 import static Utils.Utilitarios.*;
 
 public class GetUsuarios extends BaseTest {
@@ -39,30 +42,37 @@ public class GetUsuarios extends BaseTest {
 
     @Test
     public void deveListarPorIdExistente() {
+        String email = gerarEmailUnico();
+        String id =postUsuario(email);
+
         RestAssured.given()
-                         .queryParam("_id", "0uxuPY0cbmQhpEz1")
+                         .queryParam("_id", id)
                     .when()
                          .get()
                     .then()
                         .statusCode(200)
-                        .body("usuarios._id[0]", Matchers.is("0uxuPY0cbmQhpEz1"))
+                       .body("usuarios._id[0]", Matchers.is(id))
 
 
         ;
+        deletUsuario(id);
     }
 
     @Test
     public void deveValidarNomeDeUsuario() {
+        String email = gerarEmailUnico();
+        String id = postUsuario(email);
         RestAssured.given()
-                       .queryParam(NOME, "Fulano da Silva")
+                       .queryParam(NOME, "Antonio Pereira")
                    .when()
                       .get()
                    .then()
                       .statusCode(200)
-                      .body(USUARIOS_NOME, Matchers.everyItem(Matchers.equalTo("Fulano da Silva")))
+                      .body(USUARIOS_NOME, Matchers.everyItem(Matchers.equalTo("Antonio Pereira")))
 
 
         ;
+        deletUsuario(id);
 
     }
 
