@@ -30,3 +30,6 @@ jobs:
 
       - name: Test Put usuario
         run: mvn test -Dtest=PutUsuario
+
+      - name: Test E2E usuario
+        run: mvn test -Dtest=EndToEnd
