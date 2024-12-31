@@ -12,7 +12,7 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
 public class ContratoGet {
     @Test
     public void ValidacaoDeContrato(){
-        File jsonSchema = new File("src/test/resources/schemas/ContratoGet.json");
+        File jsonSchema = new File("src/test/resources/Schemas/ContratoGet.json");
         RestAssured.given()
                 .contentType(ContentType.JSON)
                 .when()
