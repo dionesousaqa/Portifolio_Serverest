@@ -7,9 +7,8 @@ on:
     branches: [ main ]
 
 jobs:
-  test:
+  contratos:
     runs-on: ubuntu-24.04
-
     steps:
       - uses: actions/checkout@v4
       - name: Set up JDK17
@@ -18,7 +17,31 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
           cache: maven
-      
+
+      - name: Test ContratoGet
+        run: mvn test -Dtest=ContratoGet
+
+      - name: Test ContratoPost
+        run: mvn test -Dtest=ContratoPost
+
+      - name: Test ContratoPut
+        run: mvn test -Dtest=ContratoPut
+
+      - name: Test ContratoDelete
+        run: mvn test -Dtest=ContratoDelete
+
+  usuarios:
+    runs-on: ubuntu-24.04
+    needs: contratos
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: maven
+
       - name: Test get usuario
         run: mvn test -Dtest=GetUsuarios
 
