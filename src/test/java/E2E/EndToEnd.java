@@ -3,7 +3,6 @@ package E2E;
 import core.ObjetosUsuarios;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 
@@ -11,7 +10,7 @@ import java.util.UUID;
 
 public class EndToEnd {
     @Test
-    public void validandoCadastroUsuario() {
+    public void validandoTesteEndToEnd() {
         String uniquePart = UUID.randomUUID().toString(); // Gera uma string única
         String email = "testuser+" + uniquePart + "@example.com";
 
@@ -112,19 +111,6 @@ public class EndToEnd {
     }
 
 }
-//    @Test
-//        public void AEIOU(){
-//     String id =   RestAssured.given()
-//                         .queryParam("_id" , "eW1k7Ite3cS4HMOS")
-//                         .contentType(ContentType.JSON)
-//                   .when()
-//                        .get("https://serverest.dev/usuarios")
-//                   .then()
-//                       .log().all()
-//                       .statusCode(200)
-//                       .extract().path("usuarios._id[0]")
-//
-//                ;
-//     System.out.println(id);
+
 
 
