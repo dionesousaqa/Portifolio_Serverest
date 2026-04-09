@@ -1,4 +1,4 @@
-package GetUsuario;
+package Usuarios.GetUsuario;
 
 import core.BaseTest;
 import io.restassured.RestAssured;

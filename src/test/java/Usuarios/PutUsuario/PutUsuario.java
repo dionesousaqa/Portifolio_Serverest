@@ -1,4 +1,4 @@
-package PutUsuario;
+package Usuarios.PutUsuario;
 
 import core.BaseTest;
 import core.ObjetosUsuarios;

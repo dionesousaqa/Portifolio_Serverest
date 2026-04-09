@@ -1,4 +1,4 @@
-package E2E;
+package Usuarios.E2E;
 
 import core.ObjetosUsuarios;
 import io.restassured.RestAssured;

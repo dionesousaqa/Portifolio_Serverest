@@ -46,13 +46,13 @@ jobs:
         run: mvn test -Dtest=GetUsuarios
 
       - name: Test post usuario
-        run: mvn test -Dtest=PostUsuarios
+        run: mvn test -Dtest=Usuarios.PostUsuarios
 
       - name: Test Delete usuario
-        run: mvn test -Dtest=DeleteUsuario
+        run: mvn test -Dtest=Usuarios.DeleteUsuario
 
       - name: Test Put usuario
-        run: mvn test -Dtest=PutUsuario
+        run: mvn test -Dtest=Usuarios.PutUsuario
 
-      - name: Test E2E usuario
+      - name: Test Usuarios.E2E usuario
         run: mvn test -Dtest=EndToEnd
