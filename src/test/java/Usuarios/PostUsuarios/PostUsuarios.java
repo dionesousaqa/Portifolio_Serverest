@@ -23,7 +23,7 @@ public class PostUsuarios extends BaseTest {
 
        Response response = RestAssured.given()
                        .body(objetosUsuarios)
-                   .when()
+                   .when().log().all()
                        .post()
                    .then()
                       .statusCode(201).log().all()

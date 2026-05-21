@@ -11,6 +11,10 @@ public class Utilitarios {
     public static final String USUARIOS_NOME = "usuarios.nome";
     public static final String USUARIOS_EMAIL = "usuarios.email";
     public static final String USUARIOS_ADMINISTRADOR = "usuarios.administrador";
-
+    public static final String APPLICATION_JSON = "application/json";
+    public static final String AUTHORIZATION ="Authorization";
+    public static final String MESSAGE ="message";
+    public static final String PRECO = "preco";
+    public static final String DESCRICAO = "descricao";
 
 }
