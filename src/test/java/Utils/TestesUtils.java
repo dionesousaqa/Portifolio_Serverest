@@ -6,6 +6,7 @@ import core.ObjetosUsuarios;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 
+import static Utils.Utilitarios.AUTHORIZATION;
 import static org.apache.http.HttpStatus.SC_OK;
 
 public class TestesUtils {
@@ -20,6 +21,7 @@ public class TestesUtils {
         objetosUsuarios.setPassword("TesteSeguranca");
 
       Response response= RestAssured.given()
+                      .header(AUTHORIZATION, Autenticacao.tokenBearer(getUsuariosLogin()))
                    .body(objetosUsuarios)
                 .when()
                    .post()
@@ -34,7 +36,7 @@ public class TestesUtils {
     public static void deletProdutos(String _id){
         Autenticacao autenticacao = new Autenticacao();
         RestAssured.given()
-                         .header("Authorization", autenticacao.tokenBearer(getUsuariosLogin()))
+                         .header("Authorization", Autenticacao.tokenBearer(getUsuariosLogin()))
                         .when()
                        .delete(_id)
                       .then().statusCode(SC_OK);
@@ -48,6 +50,7 @@ public class TestesUtils {
         objetosProdutos.setQuantidade(500);
 
         Response response = RestAssured.given()
+                                          .header("Authorization", Autenticacao.tokenBearer(getUsuariosLogin()))
                                           .body(objetosProdutos)
                                        .when()
                                           .post()

@@ -2,6 +2,7 @@ package Produtos.core;
 
 import Servicos.Autenticacao;
 import Utils.Constantes;
+import Utils.TestesUtils;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import org.junit.BeforeClass;
@@ -20,9 +21,10 @@ public static void setup(){
       RestAssured.requestSpecification = recBuilder.build();
 
       RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
-      Autenticacao autenticacao = new Autenticacao();
       TOKEN = Autenticacao.tokenBearer(getUsuariosLogin());
 
 
+
   }
+
 }
