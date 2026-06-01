@@ -43,16 +43,17 @@ jobs:
           cache: maven
 
       - name: Test get usuario
+        needs: Test ContratoGet
         run: mvn test -Dtest=GetUsuarios
 
       - name: Test post usuario
         run: mvn test -Dtest=PostUsuarios
 
       - name: Test Delete usuario
-        run: mvn test -Dtest=Usuarios.DeleteUsuario
+        run: mvn test -Dtest=DeleteUsuario
 
       - name: Test Put usuario
-        run: mvn test -Dtest=Usuarios.PutUsuario
+        run: mvn test -Dtest=PutUsuario
 
       - name: Test Usuarios.E2E usuario
         run: mvn test -Dtest=EndToEnd
