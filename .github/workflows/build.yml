@@ -43,7 +43,6 @@ jobs:
           cache: maven
 
       - name: Test get usuario
-        needs: Test ContratoGet
         run: mvn test -Dtest=GetUsuarios
 
       - name: Test post usuario
