@@ -3,12 +3,12 @@ package core;
 import Utils.Constantes;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.BeforeAll;
 
 import java.awt.*;
 
 public class BaseTest implements Constantes {
-    @BeforeClass
+    @BeforeAll
     public static void setup(){
         RestAssured.baseURI = APP_BASE_URL;
         RestAssured.basePath = APP_BASE_PATH;

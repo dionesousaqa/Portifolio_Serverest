@@ -3,7 +3,7 @@ package Usuarios.GetUsuario;
 import core.BaseTest;
 import io.restassured.RestAssured;
 import org.hamcrest.Matchers;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import static Utils.MetodosUltils.gerarEmailUnico;
 import static Utils.TestesUtils.deletUsuario;
 import static Utils.TestesUtils.postUsuario;

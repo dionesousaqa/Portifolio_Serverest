@@ -2,7 +2,7 @@ package Produtos.DeleteProdutos;
 
 import Produtos.core.BaseTest;
 import io.restassured.RestAssured;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static Utils.Utilitarios.*;
 
@@ -31,7 +31,7 @@ public class DeleteProdutoTest extends BaseTest {
                 .contentType(APPLICATION_JSON)
                 .header(AUTHORIZATION, TOKEN)
                 .when()
-                .delete("123456")
+                .delete("10102014821410100")
                 .then()
                 .statusCode(SC_BAD_REQUEST).log().all()
         ;

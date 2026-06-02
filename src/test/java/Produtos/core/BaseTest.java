@@ -5,13 +5,13 @@ import Utils.Constantes;
 import Utils.TestesUtils;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.BeforeAll;
 
 import static Utils.TestesUtils.getUsuariosLogin;
 
 public class BaseTest implements Constantes {
     protected static String TOKEN;
-  @BeforeClass
+  @BeforeAll
 public static void setup(){
       RestAssured.baseURI = APP_BASE_URL;
       RestAssured.basePath =APP_BASE_PATH_PRODUTOS;

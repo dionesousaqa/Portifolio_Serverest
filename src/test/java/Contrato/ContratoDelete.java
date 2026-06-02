@@ -3,7 +3,7 @@ package Contrato;
 import core.BaseTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
