@@ -56,3 +56,6 @@ jobs:
 
       - name: Test Usuarios.E2E usuario
         run: mvn test -Dtest=EndToEnd
+
+      - name: Test Usuarios.E2E produto
+        run: mvn test -Dtest=TesteEndToEnd
