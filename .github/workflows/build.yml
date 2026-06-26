@@ -76,15 +76,15 @@ jobs:
         run: mvn test -Dtest=GetProdutos
 
       - name: Test post produto
-        run: mvn test -Dtest=PostProdutos
+        run: mvn test -Dtest=PostProduto
 
       - name: Test Delete produto
-        run: mvn test -Dtest=DeleteProdutos
+        run: mvn test -Dtest=DeleteProdutoTest
 
-      - name: Test Put usuario
-        run: mvn test -Dtest=PutProdutos
+      - name: Test Put produto
+        run: mvn test -Dtest=PutProdutosTest
 
-      - name: Test Usuarios.E2E produto
-        run: mvn test -Dtest=EndToEnd
+      - name: Test E2E produto
+        run: mvn test -Dtest=TesteEndToEnd
 
 
