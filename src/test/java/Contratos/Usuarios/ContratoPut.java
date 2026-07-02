@@ -1,10 +1,9 @@
-package Contrato;
+package Contratos.Usuarios;
 
 import core.BaseTest;
 import core.ObjetosUsuarios;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;

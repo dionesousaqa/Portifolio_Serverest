@@ -1,4 +1,4 @@
-package Contrato;
+package Contratos.Usuarios;
 
 import core.BaseTest;
 import io.restassured.RestAssured;
