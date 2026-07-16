@@ -56,6 +56,32 @@ jobs:
       - name: Test DeleteContratoProdutos
         run: mvn test -Dtest=DeleteContratoProdutos
 
+  contratos-carrinhos:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: maven
+
+      - name: Test DelCancelCompraContratoCarrinhos
+        run: mvn test -Dtest=DelCancelCompraContratoCarrinhos
+
+      - name: Test DelConcluirCompraContratoCarrinhos
+        run: mvn test -Dtest=DelConcluirCompraContratoCarrinhos
+
+      - name: Test GetPathContratoCarrinhos
+        run: mvn test -Dtest=GetPathContratoCarrinhos
+
+      - name: Test GetQueryContratoCarrinhos
+        run: mvn test -Dtest=GetQueryContratoCarrinhos
+
+      - name: Test PostContratoCarrinhos
+        run: mvn test -Dtest=PostContratoCarrinhos
+
   usuarios:
     runs-on: ubuntu-24.04
     needs: contratos

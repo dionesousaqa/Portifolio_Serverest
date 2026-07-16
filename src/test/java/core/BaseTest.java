@@ -5,7 +5,6 @@ import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import org.junit.jupiter.api.BeforeAll;
 
-import java.awt.*;
 
 public class BaseTest implements Constantes {
     @BeforeAll
