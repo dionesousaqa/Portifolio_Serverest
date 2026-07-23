@@ -13,12 +13,8 @@ import static org.apache.http.HttpStatus.SC_OK;
 public class GetQueryContratoProdutos extends BaseTest {
     @Test
     public void getContratoProdutQuery(){
-
         File jsonSchema = new File(SchemaPaths.GET_PRODUTOS_SCHEMA);
-        RestAssured.given()
-                .when()
-                .get()
-                .then()
+        produtosServerRest.getProdutosPath()
                 .statusCode(SC_OK)
                 .body(matchesJsonSchema(jsonSchema));
     }

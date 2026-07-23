@@ -1,14 +1,13 @@
 package Contratos.Produtos;
 
+import Componentes.Produtos.ObjetosProdutos;
 import Produtos.core.BaseTest;
 import Utils.SchemaPaths;
-import core.ObjetosProdutos;
-import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
-import static Utils.TestesUtils.*;
+import static Utils.Utilitarios.*;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
 import static org.apache.http.HttpStatus.*;
 
@@ -16,21 +15,17 @@ public class PostContratoProdutos extends BaseTest {
     @Test
     public void postContratoProdutos(){
         ObjetosProdutos objetosProdutos = new ObjetosProdutos();
-        objetosProdutos.setNome("Logitech TVSmart");
-        objetosProdutos.setPreco(1500);
-        objetosProdutos.setDescricao("TV 50");
-        objetosProdutos.setQuantidade(20);
+        objetosProdutos.setNome(TV_SAMSUNG_60);
+        objetosProdutos.setPreco(PRECO_PRODUTO);
+        objetosProdutos.setDescricao(TV);
+        objetosProdutos.setQuantidade(QUANTIDADE_PRODUTO);
 
         File jsonSchema = new File(SchemaPaths.POST_PRODUTOS_SCHEMA);
-        String id = RestAssured.given()
-                .body(objetosProdutos)
-                .when()
-                .post()
-                .then()
+        String id = produtosServerRest.postProdutos(objetosProdutos)
                 .statusCode(SC_CREATED)
                 .body(matchesJsonSchema(jsonSchema))
-                .extract().path("_id")
+                .extract().path(ID)
         ;
-        deletProdutos(id);
+        produtosServerRest.delProdutos(id);
     }
 }

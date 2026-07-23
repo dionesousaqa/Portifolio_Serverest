@@ -16,15 +16,10 @@ public class DeleteContratoProdutos extends BaseTest {
     public void deleteContratoProdutos(){
         String id = postProdutos();
         File jsonSchema = new File(DEL_PRODUTOS_SCHEMA);
-
-        RestAssured.given()
-                .pathParam("_id",id)
-                .when()
-                .delete("{_id}")
-                .then()
+        produtosServerRest.delProdutos(id)
                 .statusCode(SC_OK)
                 .body(matchesJsonSchema(jsonSchema))
                 ;
-        deletProdutos(id);
+        produtosServerRest.delProdutos(id);
     }
 }
