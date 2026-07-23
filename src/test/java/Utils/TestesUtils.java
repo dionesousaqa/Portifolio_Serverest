@@ -61,7 +61,7 @@ public class TestesUtils {
         objetosProdutos.setQuantidade(500);
 
         Response response = RestAssured.given()
-                .header("Authorization", Autenticacao.tokenBearer(getUsuariosLogin()))
+               // .header("Authorization", Autenticacao.tokenBearer(getUsuariosLogin()))
                 .body(objetosProdutos)
                 .when().log().all()
                 .post("/produtos")
@@ -104,7 +104,7 @@ public class TestesUtils {
                 .header("Authorization", Autenticacao.tokenBearer(getUsuariosLogin()))
                 .body(objetosProdutos)
                 .when()
-                .post()
+                .post("produtos")
                 .then()
                 .statusCode(201)
                 .extract().response();
@@ -117,7 +117,7 @@ public class TestesUtils {
 
         Response response = RestAssured.given()
                 .when()
-                .get()
+                .get("produtos")
                 .then()
                 .extract().response();
         return response.path("produtos.nome[0]");

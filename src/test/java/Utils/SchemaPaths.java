@@ -35,6 +35,18 @@ public final class SchemaPaths {
     public static final String DEL_CANCEL_COMPRA_CARRIHOS =
             "src/test/resources/SchemasCarrinhos/ContratoDelCancelCompraCarrinhos.json";
 
+    public static String DEL_CONTRATO_USUARIOS =
+            "src/test/resources/SchemasUsuarios/ContratoDelete.json";
+
+    public static String GET_CONTRATO_USUARIOS =
+            "src/test/resources/SchemasUsuarios/ContratoGet.json";
+
+    public static String POST_CONTRATO_USURIOS =
+            "src/test/resources/SchemasUsuarios/ContratoPost.json";
+
+    public static String PUT_CONTRTO_USUARIOS =
+            "src/test/resources/SchemasUsuarios/ContratoPut.json";
+
 
 
 }

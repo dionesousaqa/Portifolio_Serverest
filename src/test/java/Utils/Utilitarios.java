@@ -1,7 +1,6 @@
 package Utils;
 
-import Usuarios.PostUsuarios.PostUsuarios;
-import org.apache.http.conn.util.PublicSuffixList;
+import org.junit.platform.engine.discovery.PackageSelector;
 
 public class Utilitarios {
     public static final String USUARIOS = "usuarios";
@@ -39,5 +38,63 @@ public class Utilitarios {
     public static final String TV_SAMSUNGPRIME_60 = "Tv SamsunguePrime 60";
     public static final String QUANTIDADE_MAIOR_IGUAL_A_ZERO ="quantidade deve ser maior ou igual a 0";
     public static final Integer NUMERAL_ZERO = 0;
+    public static final String ID_INEXISTENTE ="9pUdIIvNAchoJSSS";
+    public static final String USUARIO_ID_PRIMEIRO ="usuarios._id[0]";
+    public static final String NOME_USUARIO_AP = "Antonio Pereira";
+    public static final String NOME_USUARIO_GA = "Geraldo Amisterdã";
+    public static final String EMAIL_BELTR = "beltrano@qa.com.br";
+    public static final String EMAIL_TST= "teste3mail@hotmail.com";
+    public static final String TRUE = "true";
+    public static final String FALSE = "false";
+    public static final String NOME_ALEATORIO = "Antonio Zezim";
+    public static final String PSWD = "TesteSeguranca";
+    public static final String EMAIL_ATT ="AntonioToinhoBede@gmail.com";
+    public static final String EMAIL_ATP = "AntonioPereira22331@hotmail.com";
+    public static final String REGISTRO_EXCLUIDO = "Registro excluído com sucesso";
+    public static final String NENHUM_REGISTRO_EXCLUIDO = "Nenhum registro excluído";
+    public static final String CADASTRO_REALIZADO = "Cadastro realizado com sucesso";
+    public static final String ADMIN  = "administrador";
+    public static final String ADMIN_TRUE_OR_FALSE = "administrador deve ser 'true' ou 'false'";
+    public static final String EMAIL_NAO_PODE_FICAR_EM_BRANCO = "email não pode ficar em branco";
+    public static final String NOME_NAO_PODE_FICAR_EM_BRANCO = "nome não pode ficar em branco";
+    public static final String PASSWORD = "password";
+    public static final String PSWD_NAO_PODE_FICAR_EM_BRANCO ="password não pode ficar em branco";
+    public static final String EMAIL_DEVE_SER_VALIDO = "email deve ser um email válido";
+    public static final String EMAIL_INVALIDO = "decolar.com";
+    public static final String EMAIL_JA_USADO = "Este email já está sendo usado";
+    public static final String TESTE_USER = "testuser+";
+    public static final String EXAMPLE_COM = "@example.com";
+    public static final String USUARIO_NOME_PRIMEIRO = "usuarios.nome[0]";
+    public static final String USUARIO_EMAIL_PRIMEIRO = "usuarios.email[0]";
+    public static final String USUARIO_PSWD_PRIMEIRO = "usuarios.password[0]";
+    public static final String USUARIO_ADMIN_PRIMEIRO = "usuarios.administrador[0]";
+    public static final String ALTERADO = "Alterado";
+    public static final String NOME_JA= "José Antonio";
+    public static final String USUARIO_NAO_ENCONTRADO = "Usuário não encontrado";
+    public static final String NOME_JOSE = "Luiz José";
+    public static final String NUM_SEQUEN = "12345";
+    public static final String NOME_JL  = "José Luiz";
+    public static final Integer NUMERO_UM = 1;
+    public static final Integer NUMERO_QUINZE = 15;
+    public static final Integer NUMERO_TRES = 3;
+    public static final String  TV_LG_ALTERADA ="Tv LG 60 ALTERADA";
+    public static final Integer PRECO_PRODUTO = 150000;
+    public static final Integer QUANTIDADE_PRODUTO =500;
+    public static final Integer QUANTIDADE_PRODUTO_ALTERADA = 400;
+    public static final String  TV_SAMUNGUE_60= "Tv Samsungue 60";
+    public static final Integer PRECO_PRODUTO_ALTERADO = 12000;
+    public static final String  TV_TELA_FULLHD ="Tv, tela FullHD";
+    public static final String  ID_INCOMPLETO ="9pUdIIvNAchoJS";
+    public static final String  PRECO_DEVE_SER_UM_NUMERO = "preco deve ser um número";
+    public static final String PRECO_NAO_PODE_FICAR_EM_BRACNO ="descricao não pode ficar em branco";
+    public static final String  QUANTIDADE_DEVE_SER_UM_NUMERO = "quantidade deve ser um número";
+    public static final String  JA_EXISTE_PRODUTO_COM_ESSE_NOME ="Já existe produto com esse nome";
+    public static final String  PRECO_DEVE_SER_UM_NUMERO_POSITIVO ="preco deve ser um número positivo";
+    public static final String  MOUSE = "Mouse";
+    public static final String  NOME_DEVE_SER_STRING = "nome deve ser uma string";
+    public static final String PRECO_DEVE_SER_NUMERO = "preco deve ser um número";
+    public static final String DESCRICAO_DEVE_SER_STRING ="descricao deve ser uma string";
+    public static final String QUANTIDADE_DEVE_SER_NUMERO = "quantidade deve ser um número";
+    public static final String TV = "tv;";
 
 }
