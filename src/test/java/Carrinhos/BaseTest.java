@@ -1,5 +1,6 @@
 package Carrinhos;
 
+import Componentes.Carrinhos.CarrinhosServerRest;
 import Utils.Constantes;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
@@ -14,6 +15,7 @@ import static Utils.Utilitarios.AUTHORIZATION;
 public class BaseTest implements Constantes {
     protected static String TOKEN;
     protected static String idUsuario;
+    public static final CarrinhosServerRest carrinhoServerRest = new CarrinhosServerRest();
     @BeforeAll
     public static void setup() {
 
@@ -26,8 +28,6 @@ public class BaseTest implements Constantes {
         idUsuario = postUsuario("toinfulano26@qa.com.br");
         Response response = getUsuariosLoginCarrinho(idUsuario);
         TOKEN = tokenBearer(response);
-
-        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
 
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
 
