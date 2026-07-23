@@ -1,9 +1,8 @@
 package Produtos.PostProdutos;
 
-import Produtos.core.BaseTest;
 
-import core.ObjetosProdutos;
-import io.restassured.RestAssured;
+import Componentes.Produtos.ObjetosProdutos;
+import Produtos.core.BaseTest;
 import io.restassured.response.Response;
 
 import org.hamcrest.Matchers;
@@ -15,28 +14,21 @@ import static Utils.Utilitarios.*;
 import static org.apache.http.HttpStatus.*;
 
 
-
 public class PostProduto extends BaseTest {
     @Test
     public void creatProduto() {
 
         ObjetosProdutos objetosProdutos = new ObjetosProdutos();
-        objetosProdutos.setNome("Tv Samsungue20300 60");
-        objetosProdutos.setPreco(150000);
-        objetosProdutos.setDescricao("Tv, tela Amoled");
-        objetosProdutos.setQuantidade(500);
+        objetosProdutos.setNome(TV_SAMSUNG_90);
+        objetosProdutos.setPreco(PRECO_PRODUTO);
+        objetosProdutos.setDescricao(TV_TELA_AMOLED);
+        objetosProdutos.setQuantidade(QUANTIDADE_PRODUTO);
 
         Response response =
-                RestAssured.given()
-                        .contentType(APPLICATION_JSON)
-                        .header(AUTHORIZATION, TOKEN)
-                        .body(objetosProdutos)
-                        .when()
-                        .post()
-                        .then()
+                produtosServerRest.postProdutos(objetosProdutos)
                         .statusCode(SC_CREATED).extract().response();
 
-        deletProdutos(response.path(ID));
+        produtosServerRest.delProdutos(response.path(ID));
     }
 
     @Test
@@ -44,19 +36,13 @@ public class PostProduto extends BaseTest {
 
         ObjetosProdutos objetosProdutosN = new ObjetosProdutos();
         objetosProdutosN.setNome(getProdutos());
-        objetosProdutosN.setPreco(150000);
-        objetosProdutosN.setDescricao("Tv, tela Amoled");
-        objetosProdutosN.setQuantidade(500);
+        objetosProdutosN.setPreco(PRECO_PRODUTO);
+        objetosProdutosN.setDescricao(TV_TELA_AMOLED);
+        objetosProdutosN.setQuantidade(QUANTIDADE_PRODUTO);
 
-        Response responses =
-                RestAssured.given()
-                        .contentType(APPLICATION_JSON)
-                        .header(AUTHORIZATION, TOKEN)
-                        .body(objetosProdutosN)
-                        .when()
-                        .post()
-                        .then()
-                        .statusCode(SC_BAD_REQUEST).body(MESSAGE, Matchers.is("Já existe produto com esse nome")).extract().response();
+        produtosServerRest.postProdutos(objetosProdutosN)
+                .statusCode(SC_BAD_REQUEST).body(MESSAGE, Matchers.is(JA_EXISTE_PRODUTO_COM_ESSE_NOME))
+                .extract().response();
 
     }
     @Test
@@ -64,125 +50,80 @@ public class PostProduto extends BaseTest {
         ObjetosProdutos objetosProdutosP = new ObjetosProdutos();
         objetosProdutosP.setNome(getProdutos());
         objetosProdutosP.setPreco(0000);
-        objetosProdutosP.setDescricao("TV, tela Amoled");
-        objetosProdutosP.setQuantidade(200);
+        objetosProdutosP.setDescricao(TV_TELA_AMOLED);
+        objetosProdutosP.setQuantidade(QUANTIDADE_PRODUTO);
 
-                RestAssured.given()
-                .contentType(APPLICATION_JSON)
-                .header(AUTHORIZATION,TOKEN)
-                .body(objetosProdutosP)
-                .when()
-                .post()
-                .then()
-                .statusCode(SC_BAD_REQUEST).body(PRECO, Matchers.is( "preco deve ser um número positivo"));
+        produtosServerRest.postProdutos(objetosProdutosP)
+                .statusCode(SC_BAD_REQUEST).body(PRECO, Matchers.is(PRECO_DEVE_SER_UM_NUMERO_POSITIVO));
     }
+
     @Test
-    public void valorDescricaoExistente(){
+    public void valorDescricaoExistente() {
         ObjetosProdutos objetosProdutosD = new ObjetosProdutos();
-        objetosProdutosD.setNome("TVZ Sampitoxibaxx");
-        objetosProdutosD.setPreco(1500);
-        objetosProdutosD.setDescricao("Mouse");
-        objetosProdutosD.setQuantidade(200);
+        objetosProdutosD.setNome(TV_SAMSUNG_90);
+        objetosProdutosD.setPreco(PRECO_PRODUTO);
+        objetosProdutosD.setDescricao(MOUSE);
+        objetosProdutosD.setQuantidade(QUANTIDADE_PRODUTO);
 
-        Response responseD = RestAssured.given()
-                .contentType(APPLICATION_JSON)
-                .header(AUTHORIZATION, TOKEN)
-                .body(objetosProdutosD)
-                .when()
-                .post()
-                .then()
-                .statusCode(SC_CREATED).body(MESSAGE, Matchers.is( "Cadastro realizado com sucesso")).extract().response();
+        Response responseD =
+                produtosServerRest.postProdutos(objetosProdutosD)
+                        .statusCode(SC_CREATED).body(MESSAGE, Matchers.is(CADASTRO_REALIZADO)).extract().response();
 
-        deletProdutos(responseD.path(ID));
+        produtosServerRest.delProdutos(responseD.path(ID));
+
     }
+
     @Test
-    public void valorQuantidadeInvalido(){
+    public void valorQuantidadeInvalido() {
         ObjetosProdutos objetosProdutosQ = new ObjetosProdutos();
-        objetosProdutosQ.setNome("TVs Samptoxchiba");
-        objetosProdutosQ.setPreco(1500);
-        objetosProdutosQ.setDescricao("Televisao");
+        objetosProdutosQ.setNome(TV_SAMSUNG_90);
+        objetosProdutosQ.setPreco(PRECO_PRODUTO);
+        objetosProdutosQ.setDescricao(MOUSE);
         objetosProdutosQ.setQuantidade(-300);
 
-                RestAssured.given()
-                .contentType(APPLICATION_JSON)
-                .header(AUTHORIZATION, TOKEN)
-                .body(objetosProdutosQ)
-                .when()
-                .post()
-                .then()
-                .statusCode(SC_BAD_REQUEST).body(QUANTIDADE, Matchers.is("quantidade deve ser maior ou igual a 0"));
-
-
+        produtosServerRest.postProdutos(objetosProdutosQ)
+                .statusCode(SC_BAD_REQUEST).body(QUANTIDADE, Matchers.is(QUANTIDADE_MAIOR_IGUAL_A_ZERO));
     }
+
     @Test
-    public void campoNomeVazio(){
+    public void campoNomeVazio() {
         ObjetosProdutos objetosProdutos = new ObjetosProdutos();
-        objetosProdutos.setPreco(1500);
-        objetosProdutos.setDescricao("Televisao");
-        objetosProdutos.setQuantidade(300);
-
-                RestAssured.given()
-                .contentType(APPLICATION_JSON)
-                .header(AUTHORIZATION, TOKEN)
-                .body(objetosProdutos)
-                .when()
-                .post()
-                .then()
-               .statusCode(SC_BAD_REQUEST).body(NOME,Matchers.is("nome deve ser uma string"));
-
-
+        objetosProdutos.setPreco(PRECO_PRODUTO);
+        objetosProdutos.setDescricao(MOUSE);
+        objetosProdutos.setQuantidade(QUANTIDADE_PRODUTO);
+        produtosServerRest.postProdutos(objetosProdutos)
+                .statusCode(SC_BAD_REQUEST).body(NOME, Matchers.is( NOME_DEVE_SER_STRING));
     }
+
     @Test
-    public void campoPrecoVazio(){
+    public void campoPrecoVazio() {
         ObjetosProdutos objetosProdutos = new ObjetosProdutos();
-        objetosProdutos.setNome("Tevê SamptosShiba");
-        objetosProdutos.setDescricao("Televisao");
-        objetosProdutos.setQuantidade(300);
+        objetosProdutos.setNome(TV_SAMSUNG_90);
+        objetosProdutos.setDescricao(MOUSE);
+        objetosProdutos.setQuantidade(QUANTIDADE_PRODUTO);
 
-                RestAssured.given()
-                .contentType(APPLICATION_JSON)
-                .header(AUTHORIZATION, TOKEN)
-                .body(objetosProdutos)
-                .when()
-                .post()
-                .then()
-                .statusCode(SC_BAD_REQUEST).body(PRECO, Matchers.is("preco deve ser um número"));
-
+        produtosServerRest.postProdutos(objetosProdutos)
+                .statusCode(SC_BAD_REQUEST).body(PRECO, Matchers.is( PRECO_DEVE_SER_NUMERO));
     }
+
     @Test
-    public void campoDescricaoVazio(){
+    public void campoDescricaoVazio() {
         ObjetosProdutos objetosProdutos = new ObjetosProdutos();
-        objetosProdutos.setNome("Tev Samsungue");
-        objetosProdutos.setPreco(1700);
-        objetosProdutos.setQuantidade(500);
-
-                RestAssured.given()
-                .contentType(APPLICATION_JSON)
-                .header(AUTHORIZATION ,TOKEN)
-                .body(objetosProdutos)
-                .when()
-                .post()
-                .then()
-                .statusCode(SC_BAD_REQUEST).body(DESCRICAO , Matchers.is("descricao deve ser uma string"));
-
-
+        objetosProdutos.setNome(TV_SAMSUNG_90);
+        objetosProdutos.setPreco(PRECO_PRODUTO);
+        objetosProdutos.setQuantidade(QUANTIDADE_PRODUTO);
+        produtosServerRest.postProdutos(objetosProdutos)
+                .statusCode(SC_BAD_REQUEST).body(DESCRICAO, Matchers.is(DESCRICAO_DEVE_SER_STRING));
     }
+
     @Test
-    public void campoQuantidadeVazio(){
+    public void campoQuantidadeVazio() {
         ObjetosProdutos objetosProdutos = new ObjetosProdutos();
-        objetosProdutos.setNome("Tevê Dell");
-        objetosProdutos.setPreco(1800);
-        objetosProdutos.setDescricao("Televisao");
+        objetosProdutos.setNome(TV_SAMSUNG_90);
+        objetosProdutos.setPreco(PRECO_PRODUTO);
+        objetosProdutos.setDescricao(MOUSE);
 
-                 RestAssured.given()
-                .contentType(APPLICATION_JSON)
-                .header(AUTHORIZATION ,TOKEN)
-                .body(objetosProdutos)
-                .when()
-                .post()
-                .then()
-                .statusCode(SC_BAD_REQUEST).body( QUANTIDADE, Matchers.is("quantidade deve ser um número"));
-
-
+        produtosServerRest.postProdutos(objetosProdutos)
+                .statusCode(SC_BAD_REQUEST).body(QUANTIDADE, Matchers.is(QUANTIDADE_DEVE_SER_NUMERO));
     }
 }

@@ -1,15 +1,13 @@
 package Produtos.DeleteProdutos;
 
 import Produtos.core.BaseTest;
-import io.restassured.RestAssured;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
-
-import static Utils.Utilitarios.*;
 
 import static Utils.TestesUtils.postProdutos;
 import static org.apache.http.HttpStatus.*;
@@ -19,28 +17,15 @@ public class DeleteProdutoTest extends BaseTest {
     public void ValidarIdExistente() {
 
         String id = postProdutos();
-
-        RestAssured.given()
-                .contentType(APPLICATION_JSON)
-                .header(AUTHORIZATION, TOKEN)
-                .when()
-                .delete(id)
-                .then()
+        produtosServerRest.delProdutos(id)
                 .statusCode(SC_OK).log().all()
         ;
     }
-
     @ParameterizedTest
     @MethodSource("idsInvalido")
     public void ValidarIdInvalido(String id) {
 
-
-        RestAssured.given()
-                .contentType(APPLICATION_JSON)
-                .header(AUTHORIZATION, TOKEN)
-                .when()
-                .delete(id)
-                .then()
+        produtosServerRest.delProdutos("idsInvalido")
                 .statusCode(SC_BAD_REQUEST).log().all()
         ;
     }
@@ -48,12 +33,7 @@ public class DeleteProdutoTest extends BaseTest {
     @Test
     public void ValidarIdInexistente() {
 
-        RestAssured.given()
-                .contentType(APPLICATION_JSON)
-                .header(AUTHORIZATION, TOKEN)
-                .when()
-                .delete("1010201482141014")
-                .then()
+        produtosServerRest.delProdutos("1010201482141014")
                 .statusCode(SC_OK).log().all()
         ;
     }
@@ -61,12 +41,7 @@ public class DeleteProdutoTest extends BaseTest {
     @Test
     public void ValidarIdVazio() {
 
-        RestAssured.given()
-                .contentType(APPLICATION_JSON)
-                .header(AUTHORIZATION, TOKEN)
-                .when()
-                .delete()
-                .then()
+        produtosServerRest.delProdutos("")
                 .statusCode(SC_METHOD_NOT_ALLOWED).log().all()
         ;
     }
