@@ -1,32 +1,24 @@
 package Contratos.Usuarios;
 
+import Utils.SchemaPaths;
 import core.BaseTest;
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
-
 import java.io.File;
-
 import static Utils.MetodosUltils.gerarEmailUnico;
 import static Utils.TestesUtils.postUsuario;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
+import static org.apache.http.HttpStatus.SC_OK;
 
 public class ContratoDelete extends BaseTest {
     @Test
-    public void ValidarContratoDelete(){
+    public void ValidarContratoDelete() {
         String id = postUsuario(gerarEmailUnico());
 
-        File jsonSchema = new File("src/test/resources/Schemas/ContratoDelete.json");
+        File jsonSchema = new File(SchemaPaths.DEL_CONTRATO_USUARIOS);
 
-        RestAssured.given()
-                .contentType(ContentType.JSON)
-                .pathParam("_id", id)
-                .when()
-                .delete("https://serverest.dev/usuarios/{_id}")
-                .then()
-                .statusCode(200)
+        usuariosServerRest.delUsuario(id)
+                .statusCode(SC_OK)
                 .body(matchesJsonSchema(jsonSchema))
-
-                ;
+        ;
     }
 }

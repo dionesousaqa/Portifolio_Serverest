@@ -1,44 +1,33 @@
 package Contratos.Usuarios;
 
+import Componentes.Usuarios.ObjetosUsuarios;
+import Utils.SchemaPaths;
 import core.BaseTest;
-import core.ObjetosUsuarios;
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
-
 import java.io.File;
-
 import static Utils.MetodosUltils.gerarEmailUnico;
-import static Utils.TestesUtils.deletUsuario;
 import static Utils.TestesUtils.postUsuario;
+import static Utils.Utilitarios.*;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
+import static org.apache.http.HttpStatus.SC_OK;
 
 public class ContratoPut extends BaseTest {
     @Test
-    public void ValidarContatoPut(){
-         String id = postUsuario(gerarEmailUnico());
+    public void ValidarContatoPut() {
+        String id = postUsuario(gerarEmailUnico());
 
         ObjetosUsuarios objetosUsuarios = new ObjetosUsuarios();
-         objetosUsuarios.setPassword("12345"+ "Alterado");
-         objetosUsuarios.setEmail("Alterado"+gerarEmailUnico());
-         objetosUsuarios.setNome("Luiz José" + "Alterado");
-         objetosUsuarios.setAdministrador("false");
+        objetosUsuarios.setPassword(NUM_SEQUEN + ALTERADO);
+        objetosUsuarios.setEmail(ALTERADO + gerarEmailUnico());
+        objetosUsuarios.setNome(NOME_JOSE + ALTERADO);
+        objetosUsuarios.setAdministrador(FALSE);
 
-        File jsonSchema = new File("src/test/resources/Schemas/ContratoPut.json");
+        File jsonSchema = new File(SchemaPaths.PUT_CONTRTO_USUARIOS);
 
-
-        RestAssured.given()
-                .contentType(ContentType.JSON)
-                .body(objetosUsuarios)
-                .pathParam("_id",id)
-                .when()
-                .put("https://serverest.dev/usuarios/{_id}")
-               //OU >> .put("https://serverest.dev/usuarios/"+id)
-                .then()
-                .statusCode(200)
+        usuariosServerRest.putUsuario(id, objetosUsuarios)
+                .statusCode(SC_OK)
                 .body(matchesJsonSchema(jsonSchema))
-
-                ;
-        deletUsuario(id);
+        ;
+        usuariosServerRest.deletUsuario(id);
     }
 }

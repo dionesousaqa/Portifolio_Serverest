@@ -1,26 +1,20 @@
 package Contratos.Usuarios;
 
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
+import Utils.SchemaPaths;
+import core.BaseTest;
 import org.junit.jupiter.api.Test;
-
 import java.io.File;
-
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
+import static org.apache.http.HttpStatus.SC_OK;
 
-public class ContratoGet {
+public class ContratoGet extends BaseTest {
     @Test
-    public void ValidacaoDeContrato(){
-        File jsonSchema = new File("src/test/resources/Schemas/ContratoGet.json");
-        RestAssured.given()
-                .contentType(ContentType.JSON)
-                .when()
-                .get("https://serverest.dev/usuarios")
-                .then()
-                .statusCode(200)
+    public void ValidacaoDeContrato() {
+        File jsonSchema = new File(SchemaPaths.GET_CONTRATO_USUARIOS);
+
+        usuariosServerRest.getUsuarioPath()
+                .statusCode(SC_OK)
                 .body(matchesJsonSchema(jsonSchema));
-
-
-                ;
+        ;
     }
 }

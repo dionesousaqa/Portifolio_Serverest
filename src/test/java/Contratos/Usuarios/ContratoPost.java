@@ -1,39 +1,32 @@
 package Contratos.Usuarios;
 
+import Componentes.Usuarios.ObjetosUsuarios;
+import Utils.SchemaPaths;
 import core.BaseTest;
-import core.ObjetosUsuarios;
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 import static Utils.MetodosUltils.gerarEmailUnico;
 import java.io.File;
-
-import static Utils.TestesUtils.deletUsuario;
+import static Utils.Utilitarios.*;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
+import static org.apache.http.HttpStatus.SC_CREATED;
 
-public class ContratoPost extends BaseTest  {
+public class ContratoPost extends BaseTest {
     @Test
-    public void ValidacaoContratoPost (){
+    public void ValidacaoContratoPost() {
         ObjetosUsuarios objetosUsuarios = new ObjetosUsuarios();
-         objetosUsuarios.setPassword("1S34$");
-         objetosUsuarios.setNome("José Luiz");
-         objetosUsuarios.setAdministrador("true");
-         objetosUsuarios.setEmail(gerarEmailUnico());
+        objetosUsuarios.setPassword(PSWD);
+        objetosUsuarios.setNome(NOME_JL);
+        objetosUsuarios.setAdministrador(TRUE);
+        objetosUsuarios.setEmail(gerarEmailUnico());
 
-        File jsonSchema = new File("src/test/resources/Schemas/ContratoPost.json");
+        File jsonSchema = new File(SchemaPaths.POST_CONTRATO_USURIOS);
 
-       String id = RestAssured.given()
-                .contentType(ContentType.JSON)
-                .body(objetosUsuarios)
-                .when()
-                .post("https://serverest.dev/usuarios")
-                .then()
-                .statusCode(201)
+        String id = usuariosServerRest.postUsuario(objetosUsuarios)
+                .statusCode(SC_CREATED)
                 .body(matchesJsonSchema(jsonSchema))
-                .extract().path("_id")
+                .extract().path(ID);
 
-
-                ;
-        deletUsuario(id);
+        usuariosServerRest.deletUsuario(id);
     }
 }
+
