@@ -1,142 +1,116 @@
 package Usuarios.PostUsuarios;
 
+import Componentes.Usuarios.ObjetosUsuarios;
 import core.BaseTest;
-import core.ObjetosUsuarios;
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
 import static Utils.MetodosUltils.gerarEmailUnico;
-import static Utils.TestesUtils.deletUsuario;
 import static Utils.TestesUtils.postUsuario;
-
+import static Utils.Utilitarios.*;
+import static org.apache.http.HttpStatus.*;
 
 public class PostUsuarios extends BaseTest {
     @Test
-    public void deveInserirUsuarioComSucesso(){
+    public void deveInserirUsuarioComSucesso() {
         ObjetosUsuarios objetosUsuarios = new ObjetosUsuarios();
-        objetosUsuarios.setAdministrador("true");
+        objetosUsuarios.setAdministrador(TRUE);
         objetosUsuarios.setEmail(gerarEmailUnico());
-        objetosUsuarios.setNome("Antonio Pereira");
-        objetosUsuarios.setPassword("TesteSeguranca");
+        objetosUsuarios.setNome(NOME_USUARIO_AP);
+        objetosUsuarios.setPassword(PSWD);
+        Response response = usuariosServerRest.postUsuario(objetosUsuarios)
+                .statusCode(SC_CREATED).log().all()
+                .body(MESSAGE, Matchers.is(CADASTRO_REALIZADO))
+                .extract().response();
+        usuariosServerRest.deletUsuario(response.path(ID));
 
-       Response response = RestAssured.given()
-                       .body(objetosUsuarios)
-                   .when().log().all()
-                       .post()
-                   .then()
-                      .statusCode(201).log().all()
-                      .body("message", Matchers.is("Cadastro realizado com sucesso"))
-                      .extract().response()
-        ;
-        deletUsuario(response.path("_id"));
     }
+
     @Test
-    public void validandoCampoAdministradorVazio(){
+    public void validandoCampoAdministradorVazio() {
         ObjetosUsuarios objetosUsuarios = new ObjetosUsuarios();
         objetosUsuarios.setAdministrador("");
-        objetosUsuarios.setEmail("usuariopadrao3@hotmail.com");
-        objetosUsuarios.setNome("Antonio Pereira");
-        objetosUsuarios.setPassword("TesteSeguranca");
+        objetosUsuarios.setEmail(EMAIL_ATT);
+        objetosUsuarios.setNome(NOME_USUARIO_AP);
+        objetosUsuarios.setPassword(PSWD);
 
-        RestAssured.given()
-                .body(objetosUsuarios)
-                .when()
-                .post()
-                .then()
-                .statusCode(400).log().all()
-                .body("administrador", Matchers.is("administrador deve ser 'true' ou 'false'"))
+        usuariosServerRest.postUsuario(objetosUsuarios)
+                .statusCode(SC_BAD_REQUEST).log().all()
+                .body(ADMIN, Matchers.is(ADMIN_TRUE_OR_FALSE))
         ;
     }
+
     @Test
-    public void validandoCampoEmailVazio(){
+    public void validandoCampoEmailVazio() {
         ObjetosUsuarios objetosUsuarios = new ObjetosUsuarios();
-        objetosUsuarios.setAdministrador("true");
+        objetosUsuarios.setAdministrador(TRUE);
         objetosUsuarios.setEmail("");
-        objetosUsuarios.setNome("Antonio Pereira");
-        objetosUsuarios.setPassword("TesteSeguranca");
+        objetosUsuarios.setNome(NOME_USUARIO_AP);
+        objetosUsuarios.setPassword(PSWD);
 
-        RestAssured.given()
-                .body(objetosUsuarios)
-                .when()
-                .post()
-                .then()
-                .statusCode(400).log().all()
-                .body("email", Matchers.is("email não pode ficar em branco"))
+        usuariosServerRest.postUsuario(objetosUsuarios)
+                .statusCode(SC_BAD_REQUEST).log().all()
+                .body(EMAIL, Matchers.is(EMAIL_NAO_PODE_FICAR_EM_BRANCO))
         ;
     }
+
     @Test
-    public void validandoCampoNomeVazio(){
+    public void validandoCampoNomeVazio() {
         ObjetosUsuarios objetosUsuarios = new ObjetosUsuarios();
-        objetosUsuarios.setAdministrador("true");
-        objetosUsuarios.setEmail("usuariopadrao5@hotmail.com");
+        objetosUsuarios.setAdministrador(TRUE);
+        objetosUsuarios.setEmail(EMAIL_ATT);
         objetosUsuarios.setNome("");
-        objetosUsuarios.setPassword("TesteSeguranca");
+        objetosUsuarios.setPassword(PSWD);
 
-        RestAssured.given()
-                .body(objetosUsuarios)
-                .when()
-                .post()
-                .then()
-                .statusCode(400).log().all()
-                .body( "nome", Matchers.is("nome não pode ficar em branco"))
+        usuariosServerRest.postUsuario(objetosUsuarios)
+                .statusCode(SC_BAD_REQUEST).log().all()
+                .body(NOME, Matchers.is(NOME_NAO_PODE_FICAR_EM_BRANCO))
         ;
     }
 
     @Test
-    public void validandoCampoPasswordVazio(){
+    public void validandoCampoPasswordVazio() {
         ObjetosUsuarios objetosUsuarios = new ObjetosUsuarios();
-        objetosUsuarios.setAdministrador("true");
-        objetosUsuarios.setEmail("usuariopadrao7@hotmail.com");
-        objetosUsuarios.setNome("Antonio Pereira");
+        objetosUsuarios.setAdministrador(TRUE);
+        objetosUsuarios.setEmail(EMAIL_ATT);
+        objetosUsuarios.setNome(NOME_USUARIO_AP);
         objetosUsuarios.setPassword("");
 
-        RestAssured.given()
-                .body(objetosUsuarios)
-                .when()
-                .post()
-                .then()
-                .statusCode(400).log().all()
-                .body( "password", Matchers.is("password não pode ficar em branco"))
-        ;
-    }
-    @Test
-    public void validandoCampoEmailInvalido(){
-        ObjetosUsuarios objetosUsuarios = new ObjetosUsuarios();
-        objetosUsuarios.setAdministrador("true");
-        objetosUsuarios.setEmail("123");
-        objetosUsuarios.setNome("Antonio Pereira");
-        objetosUsuarios.setPassword("TesteSeguranca");
-
-        RestAssured.given()
-                .body(objetosUsuarios)
-                .when()
-                .post()
-                .then()
-                .statusCode(400).log().all()
-                .body( "email", Matchers.is("email deve ser um email válido"))
+        usuariosServerRest.postUsuario(objetosUsuarios)
+                .statusCode(SC_BAD_REQUEST).log().all()
+                .body(PASSWORD, Matchers.is(PSWD_NAO_PODE_FICAR_EM_BRANCO))
         ;
     }
 
     @Test
-    public void validandoCampoEmailExistente(){
-     String id = postUsuario("AntonioPereira7650@hotmail.com");
+    public void validandoCampoEmailInvalido() {
+        ObjetosUsuarios objetosUsuarios = new ObjetosUsuarios();
+        objetosUsuarios.setAdministrador(TRUE);
+        objetosUsuarios.setEmail(EMAIL_INVALIDO);
+        objetosUsuarios.setNome(NOME_USUARIO_AP);
+        objetosUsuarios.setPassword(PSWD);
+
+        usuariosServerRest.postUsuario(objetosUsuarios)
+                .statusCode(SC_BAD_REQUEST).log().all()
+                .body(EMAIL, Matchers.is(EMAIL_DEVE_SER_VALIDO))
+        ;
+    }
+
+    @Test
+    public void validandoCampoEmailExistente() {
+        String id = postUsuario(EMAIL_ATP);
 
         ObjetosUsuarios objetosUsuarios = new ObjetosUsuarios();
-        objetosUsuarios.setAdministrador("true");
-        objetosUsuarios.setEmail("AntonioPereira7650@hotmail.com");
-        objetosUsuarios.setNome("Antonio Pereira");
-        objetosUsuarios.setPassword("TesteSeguranca");
+        objetosUsuarios.setAdministrador(TRUE);
+        objetosUsuarios.setEmail(EMAIL_ATP);
+        objetosUsuarios.setNome(NOME_USUARIO_AP);
+        objetosUsuarios.setPassword(PSWD);
 
-        RestAssured.given()
-                .body(objetosUsuarios)
-                .when()
-                .post()
-                .then()
-                .statusCode(400).log().all()
-                .body( "message", Matchers.is("Este email já está sendo usado"))
+        usuariosServerRest.postUsuario(objetosUsuarios)
+                .statusCode(SC_BAD_REQUEST).log().all()
+                .body(MESSAGE, Matchers.is(EMAIL_JA_USADO))
         ;
-       deletUsuario(id);
+        usuariosServerRest.deletUsuario(id);
     }
 }

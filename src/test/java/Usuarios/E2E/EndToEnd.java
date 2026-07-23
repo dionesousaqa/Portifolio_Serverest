@@ -1,115 +1,78 @@
 package Usuarios.E2E;
 
-import core.ObjetosUsuarios;
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
+import Componentes.Usuarios.ObjetosUsuarios;
+import core.BaseTest;
+
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
+import java.util.Map;
 import java.util.UUID;
 
-public class EndToEnd {
+import static Utils.Utilitarios.*;
+import static org.apache.http.HttpStatus.*;
+
+
+public class EndToEnd extends BaseTest {
     @Test
     public void validandoTesteEndToEnd() {
-        String uniquePart = UUID.randomUUID().toString(); // Gera uma string única
-        String email = "testuser+" + uniquePart + "@example.com";
+        String uniquePart = UUID.randomUUID().toString();
+        String email = TESTE_USER + uniquePart + EXAMPLE_COM;
 
         ObjetosUsuarios objetosUsuarios = new ObjetosUsuarios();
-        objetosUsuarios.setNome("Antonio José");
+        objetosUsuarios.setNome(NOME_USUARIO_AP);
         objetosUsuarios.setEmail(email);
-        objetosUsuarios.setPassword("123Antoni");
-        objetosUsuarios.setAdministrador("true");
+        objetosUsuarios.setPassword(PSWD);
+        objetosUsuarios.setAdministrador(TRUE);
 
-        String useID = RestAssured.given()
-                .body(objetosUsuarios)
-                .contentType(ContentType.JSON)
-                .when()
-                .post("https://serverest.dev/usuarios")
-                .then()
+        String useID = usuariosServerRest.postUsuario(objetosUsuarios)
                 .log().all()
-                .statusCode(201)
-                .extract().path("_id")
+                .statusCode(SC_CREATED)
+                .extract().path(ID);
 
-
-                ;
-
-
-        RestAssured.given()
-                .queryParam("_id", useID)
-                .contentType(ContentType.JSON)
-                .when()
-                .get("https://serverest.dev/usuarios")
-                .then()
+        usuariosServerRest.getUsuarioQuery(Map.of(ID, useID))
                 .log().all()
-                .statusCode(200)
-                .body("usuarios.nome[0]", Matchers.is("Antonio José"))
-                .body("usuarios.email[0]", Matchers.is(email))
-                .body("usuarios.password[0]", Matchers.is("123Antoni"))
-                .body("usuarios.administrador[0]", Matchers.is("true"))
-                .body("usuarios._id[0]", Matchers.is(useID))
+                .statusCode(SC_OK)
+                .body(USUARIO_NOME_PRIMEIRO, Matchers.is(NOME_USUARIO_AP))
+                .body(USUARIO_EMAIL_PRIMEIRO, Matchers.is(email))
+                .body(USUARIO_PSWD_PRIMEIRO, Matchers.is(PSWD))
+                .body(USUARIO_ADMIN_PRIMEIRO, Matchers.is(TRUE))
+                .body(USUARIO_ID_PRIMEIRO, Matchers.is(useID))
         ;
 
         ObjetosUsuarios objetosUsuariosUpdate = new ObjetosUsuarios();
-            objetosUsuariosUpdate.setAdministrador("false");
-            objetosUsuariosUpdate.setEmail("Alterado"+ email);
-            objetosUsuariosUpdate.setNome("Alterado "+"José Antonio");
-            objetosUsuariosUpdate.setPassword("123J0s3$");
+        objetosUsuariosUpdate.setAdministrador(FALSE);
+        objetosUsuariosUpdate.setEmail(ALTERADO + email);
+        objetosUsuariosUpdate.setNome(ALTERADO + NOME_JA);
+        objetosUsuariosUpdate.setPassword(PSWD);
 
-       RestAssured.given()
-
-                .pathParam("_id", useID)
-                .body(objetosUsuariosUpdate)
-                .contentType(ContentType.JSON)
-                .when()
-                .put("https://serverest.dev/usuarios/{_id}")
-                .then()
+        usuariosServerRest.putUsuario(useID, objetosUsuariosUpdate)
                 .log().all()
-                .statusCode(200)
-                .body("message", Matchers.is("Registro alterado com sucesso"))
+                .statusCode(SC_OK)
+                .body(MESSAGE, Matchers.is(REGISTRO_ALTERADO))
+        ;
 
-
-                ;
-
-       RestAssured.given()
-               .pathParam("_id", useID)
-               .contentType(ContentType.JSON)
-               .when()
-               .get("https://serverest.dev/usuarios/{_id}")
-               .then()
-               .log().all()
-               .body("nome", Matchers.is("Alterado "+"José Antonio"))
-               .body("administrador", Matchers.is("false"))
-               .body("email" , Matchers.is("Alterado"+ email))
-               .body("password",Matchers.is("123J0s3$"))
-
-               ;
-
-        RestAssured.given()
-                .pathParam("_id", useID)
-                .contentType(ContentType.JSON)
-                .when()
-                .delete("https://serverest.dev/usuarios/{_id}")
-                .then()
-                .statusCode(200)
+        usuariosServerRest.getUsuarioPathId(useID)
                 .log().all()
-                .body("message", Matchers.is("Registro excluído com sucesso"))
+                .body(NOME, Matchers.is(ALTERADO  +NOME_JA))
+                .body(ADMINISTRADOR, Matchers.is(FALSE))
+                .body(EMAIL, Matchers.is(ALTERADO + email))
+                .body(PASSWORD, Matchers.is(PSWD))
 
         ;
 
-        RestAssured.given()
-                .pathParam("_id", useID)
-                .contentType(ContentType.JSON)
-                .when()
-                .get("https://serverest.dev/usuarios/{_id}")
-                .then()
-                .statusCode(400)
+        usuariosServerRest.delUsuario(useID)
+                .statusCode(SC_OK)
                 .log().all()
-                .body("message", Matchers.is( "Usuário não encontrado"))
+                .body(MESSAGE, Matchers.is(REGISTRO_EXCLUIDO))
+        ;
 
-                ;
-
+        usuariosServerRest.getUsuarioPathId(useID)
+                .statusCode(SC_BAD_REQUEST)
+                .log().all()
+                .body(MESSAGE, Matchers.is(USUARIO_NAO_ENCONTRADO))
+        ;
     }
-
 }
 
 

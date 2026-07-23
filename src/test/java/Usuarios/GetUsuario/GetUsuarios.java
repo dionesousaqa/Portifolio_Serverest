@@ -1,124 +1,99 @@
 package Usuarios.GetUsuario;
 
 import core.BaseTest;
-import io.restassured.RestAssured;
+
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
+
+import java.util.Map;
+
 import static Utils.MetodosUltils.gerarEmailUnico;
-import static Utils.TestesUtils.deletUsuario;
+
 import static Utils.TestesUtils.postUsuario;
 import static Utils.Utilitarios.*;
+import static org.apache.http.HttpStatus.SC_OK;
+
 
 public class GetUsuarios extends BaseTest {
-
 
     @Test
     public void devoListarTodosUsuarios() {
 
-        RestAssured.given()
-                   .when()
-                        .get()
-                   .then()
-                        .statusCode(200)
-                        .body(QUANTIDADE, Matchers.greaterThan(0))
+        usuariosServerRest.getUsuarioPath()
+                .statusCode(SC_OK)
+                .body(QUANTIDADE, Matchers.greaterThan(NUMERAL_ZERO))
         ;
     }
+
     @Test
     public void validarExcecaoAoPassarIdInexistente() {
-        RestAssured.given()
-                        .queryParam("_id", "12345")
-                   .when()
-                        .get()
-                   .then()
-                        .statusCode(200)
-                        .body(QUANTIDADE, Matchers.is(0))
+        usuariosServerRest.getUsuarioQuery(Map.of(ID, ID_INEXISTENTE))
+                .statusCode(SC_OK)
+                .body(QUANTIDADE, Matchers.is(NUMERAL_ZERO))
         ;
     }
+
     @Test
     public void deveListarPorIdExistente() {
         String email = gerarEmailUnico();
-        String id =postUsuario(email);
+        String id = postUsuario(email);
 
-        RestAssured.given()
-                         .queryParam("_id", id)
-                    .when()
-                         .get()
-                    .then()
-                        .statusCode(200)
-                       .body("usuarios._id[0]", Matchers.is(id))
+        usuariosServerRest.getUsuarioQuery(Map.of(ID, id))
+                .statusCode(SC_OK)
+                .body(USUARIO_ID_PRIMEIRO, Matchers.is(id))
         ;
-        deletUsuario(id);
+        usuariosServerRest.deletUsuario(id);
     }
+
     @Test
     public void deveValidarNomeDeUsuario() {
         String email = gerarEmailUnico();
         String id = postUsuario(email);
-        RestAssured.given()
-                       .queryParam(NOME, "Antonio Pereira")
-                   .when()
-                      .get()
-                   .then()
-                      .statusCode(200)
-                      .body(USUARIOS_NOME, Matchers.everyItem(Matchers.equalTo("Antonio Pereira")))
-        ;
-        deletUsuario(id);
 
+        usuariosServerRest.getUsuarioQuery(Map.of(NOME, NOME_USUARIO_AP))
+                .statusCode(SC_OK)
+                .body(USUARIOS_NOME, Matchers.everyItem(Matchers.equalTo(NOME_USUARIO_AP)))
+        ;
+        usuariosServerRest.deletUsuario(id);
     }
 
     @Test
     public void deveValidarNomeInexistente() {
-        RestAssured.given()
-                .queryParam(NOME , " Geraldo Amisterdã")
-                    .when()
-                        .get()
-                    .then()
-                        .statusCode(200)
-                        .body(QUANTIDADE, Matchers.is(0))
-                ;
-    }
-    @Test
-    public void deveValidarEmailExistente(){
-        RestAssured.given()
-                       .queryParam(EMAIL, "beltrano@qa.com.br")
-                    .when()
-                       .get()
-                    .then()
-                       .statusCode(200)
-                       .body( USUARIOS_EMAIL, Matchers.everyItem(Matchers.equalTo("beltrano@qa.com.br")))
-                ;
+        usuariosServerRest.getUsuarioQuery(Map.of(NOME, NOME_USUARIO_GA))
+                .statusCode(SC_OK)
+                .body(QUANTIDADE, Matchers.is(0))
+        ;
     }
 
     @Test
-    public void deveValidarEmailInexistente(){
-        RestAssured.given()
-                      .queryParam(EMAIL,"teste3mail@hotmail.com")
-                   .when()
-                       .get()
-                   .then()
-                      .statusCode(200)
-                      .body(QUANTIDADE, Matchers.is(0))
-                ;
+    public void deveValidarEmailExistente() {
+        usuariosServerRest.getUsuarioQuery(Map.of(EMAIL, EMAIL_BELTR))
+                .statusCode(SC_OK)
+                .body(USUARIOS_EMAIL, Matchers.everyItem(Matchers.equalTo(EMAIL_BELTR)))
+        ;
     }
+
     @Test
-    public void deveValidarAdministradorTrue(){
-        RestAssured.given()
-                       .queryParam(ADMINISTRADOR,"true")
-                    .when()
-                       .get()
-                    .then()
-                      .statusCode(200)
-                      .body( USUARIOS_ADMINISTRADOR,Matchers.everyItem(Matchers.equalTo("true")))
-                ;
+    public void deveValidarEmailInexistente() {
+        usuariosServerRest.getUsuarioQuery(Map.of(EMAIL, EMAIL_TST))
+                .statusCode(SC_OK)
+                .body(QUANTIDADE, Matchers.is(0))
+        ;
     }
+
     @Test
-    public void deveValidarAdministradorFalse(){
-        RestAssured.given()
-                       .queryParam(ADMINISTRADOR, "false")
-                    .when()
-                       .get()
-                    .then()
-                      .statusCode(200)
-                      .body( USUARIOS_ADMINISTRADOR,Matchers.everyItem(Matchers.equalTo("false")))
-                ;
+    public void deveValidarAdministradorTrue() {
+        usuariosServerRest.getUsuarioQuery(Map.of(ADMINISTRADOR, TRUE))
+                .statusCode(SC_OK)
+                .body(USUARIOS_ADMINISTRADOR, Matchers.everyItem(Matchers.equalTo(TRUE)))
+        ;
+    }
+
+    @Test
+    public void deveValidarAdministradorFalse() {
+        usuariosServerRest.getUsuarioQuery(Map.of(ADMINISTRADOR, FALSE))
+                .statusCode(SC_OK)
+                .body(USUARIOS_ADMINISTRADOR, Matchers.everyItem(Matchers.equalTo(FALSE)))
+        ;
     }
 }

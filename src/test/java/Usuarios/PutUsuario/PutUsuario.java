@@ -1,108 +1,90 @@
 package Usuarios.PutUsuario;
 
 import core.BaseTest;
-import core.ObjetosUsuarios;
-import io.restassured.RestAssured;
+import Componentes.Usuarios.ObjetosUsuarios;
+
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
 import static Utils.MetodosUltils.gerarEmailUnico;
-import static Utils.TestesUtils.deletUsuario;
+
 import static Utils.TestesUtils.postUsuario;
+import static Utils.Utilitarios.*;
+import static org.apache.http.HttpStatus.SC_OK;
 
 public class PutUsuario extends BaseTest {
     @Test
-    public void devoAtualizarNomedeUsuario(){
+    public void devoAtualizarNomedeUsuario() {
         String email = gerarEmailUnico();
         String id = postUsuario(email);
 
         ObjetosUsuarios objetosUsuarios = new ObjetosUsuarios();
-        objetosUsuarios.setAdministrador("true");
+        objetosUsuarios.setAdministrador(TRUE);
         objetosUsuarios.setEmail(email);
-        objetosUsuarios.setNome("Antonio Zezim");
-        objetosUsuarios.setPassword("TesteSeguranca");
+        objetosUsuarios.setNome(NOME_ALEATORIO);
+        objetosUsuarios.setPassword(PSWD);
 
-            RestAssured.given()
-                       .body(objetosUsuarios)
-                   .when()
-                      .put(id)
-                   .then()
-                     .statusCode(200).log().all()
-                     .extract()
-                     .response()
-
-
-                ;
-           deletUsuario(id);
+        usuariosServerRest.putUsuario(id, objetosUsuarios)
+                .statusCode(SC_OK).log().all()
+                .extract()
+                .response()
+        ;
+        usuariosServerRest.deletUsuario(id);
     }
 
     @Test
-    public void deveAlterarAdministrador(){
+    public void deveAlterarAdministrador() {
         String email = gerarEmailUnico();
         String id = postUsuario(email);
 
         ObjetosUsuarios objetosUsuarios = new ObjetosUsuarios();
-          objetosUsuarios.setAdministrador("false");
-          objetosUsuarios.setEmail(email);
-          objetosUsuarios.setNome("Antonio Zezim");
-          objetosUsuarios.setPassword("TesteSeguranca");
+        objetosUsuarios.setAdministrador(FALSE);
+        objetosUsuarios.setEmail(email);
+        objetosUsuarios.setNome(NOME_ALEATORIO);
+        objetosUsuarios.setPassword(PSWD);
 
-        RestAssured.given()
-                       .body(objetosUsuarios)
-                   .when()
-                       .put(id)
-                   .then()
-                      .statusCode(200).log().all()
-                      .body("message", Matchers.is(("Registro alterado com sucesso")))
+        usuariosServerRest.putUsuario(id, objetosUsuarios)
+                .statusCode(SC_OK).log().all()
+                .body(MESSAGE, Matchers.is((REGISTRO_ALTERADO)))
 
-                ;
-              deletUsuario(id);
-
-
+        ;
+        usuariosServerRest.deletUsuario(id);
     }
+
     @Test
-    public void devoAlterarPassword(){
+    public void devoAlterarPassword() {
         String email = gerarEmailUnico();
-        String id =postUsuario(email);
+        String id = postUsuario(email);
 
         ObjetosUsuarios objetosUsuarios = new ObjetosUsuarios();
-         objetosUsuarios.setAdministrador("false");
-         objetosUsuarios.setNome("Antonio Zezim");
-         objetosUsuarios.setEmail(email);
-         objetosUsuarios.setPassword("TesteSeguança2024");
+        objetosUsuarios.setAdministrador(FALSE);
+        objetosUsuarios.setNome(NOME_ALEATORIO);
+        objetosUsuarios.setEmail(email);
+        objetosUsuarios.setPassword(PSWD);
 
-              RestAssured.given()
-                           .body(objetosUsuarios)
-                        .when()
-                          .put(id)
-                      .then()
-                         .statusCode(200).log().all()
-                         .body("message", Matchers.is("Registro alterado com sucesso"))
-
-                      ;
-              deletUsuario(id);
+        usuariosServerRest.putUsuario(id, objetosUsuarios)
+                .statusCode(SC_OK).log().all()
+                .body(MESSAGE, Matchers.is(REGISTRO_ALTERADO))
+        ;
+        usuariosServerRest.deletUsuario(id);
     }
+
     @Test
-    public void devoAlterarEmail(){
+    public void devoAlterarEmail() {
         String email = gerarEmailUnico();
-        String id =postUsuario(email);
+        String id = postUsuario(email);
 
         ObjetosUsuarios objetosUsuarios = new ObjetosUsuarios();
-         objetosUsuarios.setPassword("TesteSeguança2024");
-         objetosUsuarios.setEmail("AntonioToinhoBede@gmail.com");
-         objetosUsuarios.setAdministrador("true");
-         objetosUsuarios.setNome("Antonio Zezim");
+        objetosUsuarios.setPassword(PSWD);
+        objetosUsuarios.setEmail(EMAIL_ATT);
+        objetosUsuarios.setAdministrador(TRUE);
+        objetosUsuarios.setNome(NOME_ALEATORIO);
 
-        RestAssured.given()
-                       .body(objetosUsuarios)
-                   .when()
-                       .put(id)
-                   .then()
-                      .statusCode(200).log().all()
-                      .body("message", Matchers.is("Registro alterado com sucesso"))
-
-                ;
-        deletUsuario(id);
+        usuariosServerRest.putUsuario(id, objetosUsuarios)
+                .statusCode(SC_OK).log().all()
+                .body(MESSAGE, Matchers.is(REGISTRO_ALTERADO))
+        ;
+        usuariosServerRest.deletUsuario(id);
     }
 
 }

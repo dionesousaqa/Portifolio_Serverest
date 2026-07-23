@@ -7,30 +7,26 @@ import org.junit.jupiter.api.Test;
 
 import static Utils.TestesUtils.deletUsuario;
 import static Utils.TestesUtils.postUsuario;
+import static Utils.Utilitarios.*;
+import static org.apache.http.HttpStatus.SC_OK;
 
 public class DeleteUsuario extends BaseTest {
     @Test
     public void deletandoUsuario () {
-        String id = postUsuario("AntonioPereira22331@hotmail.com");
+        String id = postUsuario(EMAIL_ATP);
 
-        RestAssured.given()
-                   .when()
-                       .delete(id)
-                   .then()
-                      .statusCode(200).log().all()
-                      .body("message", Matchers.is("Registro excluído com sucesso"))
+       usuariosServerRest.delUsuario(id)
+                      .statusCode(SC_OK).log().all()
+                      .body(MESSAGE, Matchers.is(REGISTRO_EXCLUIDO))
                 ;
-        deletUsuario(id);
+        usuariosServerRest.deletUsuario(id);
     }
     @Test
     public void deletandoUsuarioComIdInexistente () {
 
-        RestAssured.given()
-                .when()
-                    .delete("123")
-                .then()
-                   .statusCode(200).log().all()
-                   .body("message", Matchers.is("Nenhum registro excluído"))
+        usuariosServerRest.delUsuario(ID_INEXISTENTE)
+                   .statusCode(SC_OK).log().all()
+                   .body(MESSAGE, Matchers.is(NENHUM_REGISTRO_EXCLUIDO))
         ;
     }
 }
