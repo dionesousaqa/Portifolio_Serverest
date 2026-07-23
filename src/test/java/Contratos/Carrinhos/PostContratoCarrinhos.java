@@ -40,12 +40,7 @@ public class PostContratoCarrinhos extends BaseTest {
         System.out.println(json);
 
         File jsonSchema = new File(SchemaPaths.POST_CARRINHOS_SCHEMA);
-
-        RestAssured.given()
-                .when()
-                .body(json)
-                .post(APP_BASE_PATH_CARRINHOS)
-                .then()
+       carrinhoServerRest.postCarrinhos(json)
                 .statusCode(SC_CREATED)
                 .body(matchesJsonSchema(jsonSchema))
         ;

@@ -13,16 +13,13 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
 
 public class DelCancelCompraContratoCarrinhos extends BaseTest {
     @Test
-    public void delCancelComprasContratoCarrinhos(){
+    public void delCancelComprasContratoCarrinhos() {
         String idProduto = postProdutosC();
         String id = postCarrinhos(idProduto);
 
-        File jsonSchema= new File(SchemaPaths. DEL_CANCEL_COMPRA_CARRIHOS);
+        File jsonSchema = new File(SchemaPaths.DEL_CANCEL_COMPRA_CARRIHOS);
 
-        RestAssured.given()
-                .when().log().all()
-                .delete(CARRINHO_CANCELAR_COMPRA)
-                .then().log().all()
+        carrinhoServerRest.delCarrinhosCancellCompras()
                 .body(matchesJsonSchema(jsonSchema));
         ;
         deletProdutos(idProduto);

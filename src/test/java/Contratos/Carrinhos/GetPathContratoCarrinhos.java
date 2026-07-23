@@ -18,10 +18,7 @@ public class GetPathContratoCarrinhos extends BaseTest {
         String id = postCarrinhos(idProduto);
 
         File jsonSchema = new File(SchemaPaths.GET_CARINHOS_PATH_SCHEMA);
-        RestAssured.given()
-                .when().log().all()
-                .get(CARRINHOS_+ id)
-                .then()
+        carrinhoServerRest.getCarrinhoPathId(id)
                 .statusCode(SC_OK)
                 .body(matchesJsonSchema(jsonSchema));
         ;
