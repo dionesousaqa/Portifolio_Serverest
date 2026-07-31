@@ -1,12 +1,11 @@
 package Contratos.Carrinhos;
 
-import Carrinhos.BaseTest;
+import Funcionais.Carrinhos.BaseTest;
 import Utils.SchemaPaths;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import core.ObjetosCarrinhos;
 import core.ObjetosCarrinhosLista;
-import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;

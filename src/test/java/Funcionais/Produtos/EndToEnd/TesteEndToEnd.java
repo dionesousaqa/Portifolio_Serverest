@@ -1,7 +1,7 @@
-package Produtos.EndToEnd;
+package Funcionais.Produtos.EndToEnd;
 
 import Componentes.Produtos.ObjetosProdutos;
-import Produtos.core.BaseTest;
+import Funcionais.Produtos.core.BaseTest;
 
 import org.junit.jupiter.api.Test;
 

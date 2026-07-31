@@ -1,4 +1,4 @@
-package Usuarios.E2E;
+package Funcionais.Usuarios.E2E;
 
 import Componentes.Usuarios.ObjetosUsuarios;
 import core.BaseTest;

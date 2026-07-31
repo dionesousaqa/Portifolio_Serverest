@@ -1,4 +1,4 @@
-package Usuarios.PostUsuarios;
+package Funcionais.Usuarios.PostUsuarios;
 
 import Componentes.Usuarios.ObjetosUsuarios;
 import core.BaseTest;

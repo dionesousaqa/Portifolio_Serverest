@@ -1,8 +1,7 @@
 package Contratos.Carrinhos;
 
-import Carrinhos.BaseTest;
+import Funcionais.Carrinhos.BaseTest;
 import Utils.SchemaPaths;
-import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;

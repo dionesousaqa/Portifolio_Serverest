@@ -1,4 +1,4 @@
-package Usuarios.GetUsuario;
+package Funcionais.Usuarios.GetUsuario;
 
 import core.BaseTest;
 

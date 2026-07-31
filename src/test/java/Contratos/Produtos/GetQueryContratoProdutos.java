@@ -1,8 +1,7 @@
 package Contratos.Produtos;
 
-import Produtos.core.BaseTest;
+import Funcionais.Produtos.core.BaseTest;
 import Utils.SchemaPaths;
-import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;

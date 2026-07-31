@@ -1,7 +1,6 @@
 package Contratos.Produtos;
 
-import Produtos.core.BaseTest;
-import io.restassured.RestAssured;
+import Funcionais.Produtos.core.BaseTest;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;

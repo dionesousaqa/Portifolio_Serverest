@@ -86,7 +86,7 @@ public class Utilitarios {
     public static final String  TV_TELA_FULLHD ="Tv, tela FullHD";
     public static final String  ID_INCOMPLETO ="9pUdIIvNAchoJS";
     public static final String  PRECO_DEVE_SER_UM_NUMERO = "preco deve ser um número";
-    public static final String PRECO_NAO_PODE_FICAR_EM_BRACNO ="descricao não pode ficar em branco";
+    public static final String  PRECO_NAO_PODE_FICAR_EM_BRACNO ="descricao não pode ficar em branco";
     public static final String  QUANTIDADE_DEVE_SER_UM_NUMERO = "quantidade deve ser um número";
     public static final String  JA_EXISTE_PRODUTO_COM_ESSE_NOME ="Já existe produto com esse nome";
     public static final String  PRECO_DEVE_SER_UM_NUMERO_POSITIVO ="preco deve ser um número positivo";
@@ -96,5 +96,7 @@ public class Utilitarios {
     public static final String DESCRICAO_DEVE_SER_STRING ="descricao deve ser uma string";
     public static final String QUANTIDADE_DEVE_SER_NUMERO = "quantidade deve ser um número";
     public static final String TV = "tv;";
+    public static final String TOKEN_AUSENTE = "Bearer token_Ausente";
+    public static final String TOKEN_AUSENTE_INVALIDO_EXPIRADO = "Token de acesso ausente, inválido, expirado ou usuário do token não existe mais";
 
 }

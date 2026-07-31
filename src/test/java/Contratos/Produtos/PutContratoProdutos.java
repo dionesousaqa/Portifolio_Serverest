@@ -1,7 +1,7 @@
 package Contratos.Produtos;
 
 import Componentes.Produtos.ObjetosProdutos;
-import Produtos.core.BaseTest;
+import Funcionais.Produtos.core.BaseTest;
 import Utils.SchemaPaths;
 import org.junit.jupiter.api.Test;
 

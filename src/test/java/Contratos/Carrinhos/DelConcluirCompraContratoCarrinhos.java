@@ -1,6 +1,6 @@
 package Contratos.Carrinhos;
 
-import Carrinhos.BaseTest;
+import Funcionais.Carrinhos.BaseTest;
 import Utils.SchemaPaths;
 
 import org.junit.jupiter.api.Test;

@@ -1,8 +1,8 @@
-package Produtos.PostProdutos;
+package Funcionais.Produtos.PostProdutos;
 
 
 import Componentes.Produtos.ObjetosProdutos;
-import Produtos.core.BaseTest;
+import Funcionais.Produtos.core.BaseTest;
 import io.restassured.response.Response;
 
 import org.hamcrest.Matchers;

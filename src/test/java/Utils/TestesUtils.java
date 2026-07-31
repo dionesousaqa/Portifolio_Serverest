@@ -81,7 +81,7 @@ public class TestesUtils {
         objetosProdutos.setQuantidade(500);
 
         Response response = RestAssured.given()
-                //   .header("Authorization", Autenticacao.tokenBearer(getUsuariosLogin()))
+           //   .header("Authorization", Autenticacao.tokenBearer(getUsuariosLogin()))
                 .body(objetosProdutos)
                 .when().log().all()
                 .post("/produtos")

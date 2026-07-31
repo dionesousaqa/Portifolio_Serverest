@@ -1,12 +1,11 @@
-package Carrinhos;
+package Funcionais.Carrinhos;
 
 import Componentes.Carrinhos.CarrinhosServerRest;
 import Utils.Constantes;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.Response;
-import org.junit.jupiter.api.BeforeAll;
-
+import org.junit.jupiter.api.BeforeEach;
 
 import static Servicos.Autenticacao.tokenBearer;
 import static Utils.TestesUtils.*;
@@ -16,8 +15,8 @@ public class BaseTest implements Constantes {
     protected static String TOKEN;
     protected static String idUsuario;
     public static final CarrinhosServerRest carrinhoServerRest = new CarrinhosServerRest();
-    @BeforeAll
-    public static void setup() {
+    @BeforeEach
+    public void setup() {
 
         RestAssured.baseURI = APP_BASE_URL;
 

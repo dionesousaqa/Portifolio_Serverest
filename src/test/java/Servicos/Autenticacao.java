@@ -20,7 +20,7 @@ public class Autenticacao {
                 .when()
                 .post("https://serverest.dev/login")
                 .then()
-                .statusCode(SC_OK).extract().path("authorization")
+                .statusCode(SC_OK).log().all().extract().path("authorization")
                 ;
     }
 

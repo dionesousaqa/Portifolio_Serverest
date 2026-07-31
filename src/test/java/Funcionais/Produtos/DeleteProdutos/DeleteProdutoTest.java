@@ -1,6 +1,6 @@
-package Produtos.DeleteProdutos;
+package Funcionais.Produtos.DeleteProdutos;
 
-import Produtos.core.BaseTest;
+import Funcionais.Produtos.core.BaseTest;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

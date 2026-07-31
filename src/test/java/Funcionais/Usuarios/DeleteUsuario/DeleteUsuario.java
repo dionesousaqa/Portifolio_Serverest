@@ -1,4 +1,4 @@
-package Usuarios.DeleteUsuario;
+package Funcionais.Usuarios.DeleteUsuario;
 
 import core.BaseTest;
 import io.restassured.RestAssured;

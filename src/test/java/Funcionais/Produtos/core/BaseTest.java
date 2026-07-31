@@ -1,4 +1,4 @@
-package Produtos.core;
+package Funcionais.Produtos.core;
 
 import Componentes.Produtos.ProdutosServerRest;
 import Servicos.Autenticacao;

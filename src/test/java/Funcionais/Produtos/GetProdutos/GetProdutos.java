@@ -1,6 +1,6 @@
-package Produtos.GetProdutos;
+package Funcionais.Produtos.GetProdutos;
 
-import Produtos.core.BaseTest;
+import Funcionais.Produtos.core.BaseTest;
 
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;

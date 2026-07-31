@@ -1,11 +1,7 @@
 package Contratos.Carrinhos;
-
-import Carrinhos.BaseTest;
+import Funcionais.Carrinhos.BaseTest;
 import Utils.SchemaPaths;
-import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
-import org.mozilla.javascript.Token;
-
 import java.io.File;
 import java.util.Map;
 
@@ -23,7 +19,7 @@ public class GetQueryContratoCarrinhos extends BaseTest {
 
         File jsonSchema = new File(SchemaPaths.GET_CARRINHO_QUEY_SCHEMA);
 
-        carrinhoServerRest.getCrrinhosQuery(Map.of(ID, id))
+        carrinhoServerRest.getCarrinhosQuery(Map.of(ID, id))
                 .statusCode(SC_OK)
                 .log().all()
                 .body(matchesJsonSchema(jsonSchema));
