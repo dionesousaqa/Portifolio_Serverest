@@ -1,6 +1,7 @@
 package Funcionais.Carrinhos;
 
 import Componentes.Carrinhos.CarrinhosServerRest;
+import Componentes.Produtos.ProdutosServerRest;
 import Utils.Constantes;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
@@ -15,6 +16,7 @@ public class BaseTest implements Constantes {
     protected static String TOKEN;
     protected static String idUsuario;
     public static final CarrinhosServerRest carrinhoServerRest = new CarrinhosServerRest();
+    public static final ProdutosServerRest  produtoServiceRest = new ProdutosServerRest();
     @BeforeEach
     public void setup() {
 
