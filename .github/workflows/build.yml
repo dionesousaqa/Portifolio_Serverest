@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  contratos:
+  contratos-usuarios:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
@@ -84,6 +84,7 @@ jobs:
 
   carrinhos:
     runs-on: ubuntu-24.04
+    needs: contratos-carrinhos
     steps:
       - uses: actions/checkout@v4
       - name: Set up JDK17
@@ -116,7 +117,7 @@ jobs:
 
   usuarios:
     runs-on: ubuntu-24.04
-    needs: contratos
+    needs: contratos-usuarios
     steps:
       - uses: actions/checkout@v4
       - name: Set up JDK17
@@ -146,7 +147,7 @@ jobs:
 
   produtos:
     runs-on: ubuntu-24.04
-    needs: contratos
+    needs: contratos-produtos
     steps:
       - uses: actions/checkout@v4
       - name: Set up JDK17
@@ -170,5 +171,34 @@ jobs:
 
       - name: Test E2E produto
         run: mvn test -Dtest=TesteEndToEnd
+
+  login:
+    runs-on: ubuntu-24.04
+    needs: contratos-login
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK17
+        uses: actions/setup-java@v4
+        with:
+        distribution: 'temurin'
+        java-version: '17'
+        cache: maven
+
+      - name: Test post login
+        run: mvn test -Dtest=TesteLogin
+
+  contratos-login:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: maven
+
+      - name: Test PostContratoLogin
+        run: mvn test -Dtest=ContratoLogin
 
 

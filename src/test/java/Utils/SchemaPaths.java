@@ -47,6 +47,9 @@ public final class SchemaPaths {
     public static String PUT_CONTRTO_USUARIOS =
             "src/test/resources/SchemasUsuarios/ContratoPut.json";
 
+    public static String CONTRATO_LOGIN =
+            "src/test/resources/SchemasLogin/ContratoLogin.json";
+
 
 
 }
