@@ -180,9 +180,9 @@ jobs:
       - name: Set up JDK17
         uses: actions/setup-java@v4
         with:
-        distribution: 'temurin'
-        java-version: '17'
-        cache: maven
+          distribution: 'temurin'
+          java-version: '17'
+          cache: maven
 
       - name: Test post login
         run: mvn test -Dtest=TesteLogin
