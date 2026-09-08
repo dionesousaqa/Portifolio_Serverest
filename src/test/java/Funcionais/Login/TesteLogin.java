@@ -1,7 +1,9 @@
 package Funcionais.Login;
 
+import Utils.TestesUtils;
 import core.ObjetosLogin;
 
+import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
 
 import static Utils.Utilitarios.*;
@@ -12,9 +14,11 @@ import static org.hamcrest.Matchers.notNullValue;
 public class TesteLogin extends BaseTest {
     @Test
     public void deveRealizarLoginComSucesso() {
+        Response response = TestesUtils.getUsuariosLogin();
+
         ObjetosLogin objetosLogin = new ObjetosLogin();
-        objetosLogin.setEmail(FULANO_QA);
-        objetosLogin.setPassword(TESTE);
+        objetosLogin.setEmail(response.path("usuarios.email[0]"));
+        objetosLogin.setPassword(response.path("usuarios.password[0]"));
 
         loginServerRest.postLogin(objetosLogin)
                 .statusCode(SC_OK).log().all()
@@ -36,8 +40,10 @@ public class TesteLogin extends BaseTest {
 
     @Test
     public void deveRetornarErroDeSenhaInvalida() {
+        Response response = TestesUtils.getUsuariosLogin();
+
         ObjetosLogin objetosLogin = new ObjetosLogin();
-        objetosLogin.setEmail(FULANO_QA);
+        objetosLogin.setEmail(response.path("usuarios.email[0]"));
         objetosLogin.setPassword(PSWD_INVALID);
 
         loginServerRest.postLogin(objetosLogin)
@@ -61,8 +67,10 @@ public class TesteLogin extends BaseTest {
 
     @Test
     public void deveRetornarErroDePasswordVazio() {
+        Response response = TestesUtils.getUsuariosLogin();
+
         ObjetosLogin objetosLogin = new ObjetosLogin();
-        objetosLogin.setEmail(FULANO_QA);
+        objetosLogin.setEmail(response.path("usuarios.email[0]"));
         objetosLogin.setPassword("");
 
         loginServerRest.postLogin(objetosLogin)

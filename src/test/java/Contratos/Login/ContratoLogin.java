@@ -2,7 +2,9 @@ package Contratos.Login;
 
 import Funcionais.Login.BaseTest;
 import Utils.SchemaPaths;
+import Utils.TestesUtils;
 import core.ObjetosLogin;
+import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -17,9 +19,11 @@ import static org.hamcrest.Matchers.notNullValue;
 public class ContratoLogin extends BaseTest{
     @Test
     public void contratoLogin(){
+        Response response = TestesUtils.getUsuariosLogin();
+
         ObjetosLogin objetosLogin = new ObjetosLogin();
-        objetosLogin.setEmail(FULANO_QA);
-        objetosLogin.setPassword(TESTE);
+        objetosLogin.setEmail(response.path("usuarios.email[0]"));
+        objetosLogin.setPassword(response.path("usuarios.password[0]"));
 
         File jsonSchema = new File(SchemaPaths.CONTRATO_LOGIN);
 
