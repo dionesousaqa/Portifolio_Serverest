@@ -189,8 +189,10 @@ jobs:
 
   contratos-login:
     runs-on: ubuntu-24.04
+
     steps:
       - uses: actions/checkout@v4
+
       - name: Set up JDK17
         uses: actions/setup-java@v4
         with:
