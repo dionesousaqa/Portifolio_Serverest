@@ -145,6 +145,17 @@ public class TestesUtils {
         );
     }
 
+    public static void validarProduto2(Response response, String id) {
+
+        assertAll(
+                () -> assertEquals(TV_SAMSUNG_60, response.path(PRODUTOS_NOME_ID_PRIMEIRO)),
+                () -> assertEquals(150000, response.jsonPath().getInt((PRODUTOS_PRECO_ID_PRIMEIRO))),
+                () -> assertEquals(TV_TELA_AMOLED, response.path(PRODUTOS_DESCRICAO_ID_PRIMEIRO)),
+                () -> assertEquals(500, response.jsonPath().getInt((PRODUTO_QUANTIDADE_ID_PRIMEIRO))),
+                () -> assertEquals(id, response.path(PRODUTO_ID_PRIMEIRO))
+        );
+    }
+
     public static void validarProdutosPath(Response response, String id) {
         assertAll(
                 () -> assertEquals(TV_SAMSUNG_60, response.path(NOME)),
