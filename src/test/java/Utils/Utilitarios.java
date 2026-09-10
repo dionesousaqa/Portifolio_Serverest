@@ -182,6 +182,8 @@ public class Utilitarios {
     public static final Integer QUANTIDADE_PRODUTO = 500;
     public static final Integer QUANTIDADE_PRODUTO_ALTERADA = 400;
     public static final Integer PRECO_PRODUTO_ALTERADO = 12000;
+    public static final Integer QUANTIDADE_PRODUTO_CLASS_PROD = 8500;
+
 
 
     // =========================

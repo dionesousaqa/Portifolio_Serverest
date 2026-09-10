@@ -85,7 +85,7 @@ public class GetProdutos extends BaseTest {
 
     @Test
     public void campoNomeValidoQuery() {
-        String id = postProdutosAll(TV_SAMSUNG_60, 150000, TV_TELA_AMOLED, 500);
+        String id = postProdutosAll(TV_SAMSUNG_60, 150000, TV_TELA_AMOLED, QUANTIDADE_PRODUTO_CLASS_PROD);
 
         produtosServerRest.getProdutosQuery(Map.of(NOME, TV_SAMSUNG_60))
                 .statusCode(SC_OK).log().all()
@@ -111,7 +111,7 @@ public class GetProdutos extends BaseTest {
 
     @Test
     public void campoPrecoValidoQuery() {
-        String id = postProdutosAll(TV_SAMSUNG_60, 150000, TV_TELA_AMOLED, 500);
+        String id = postProdutosAll(TV_SAMSUNG_60, 150000, TV_TELA_AMOLED,QUANTIDADE_PRODUTO);
 
         Response response = produtosServerRest.getProdutosQuery(Map.of(PRECO, 150000))
                 .statusCode(SC_OK).log().all()
@@ -147,7 +147,7 @@ public class GetProdutos extends BaseTest {
 
     @Test
     public void campoDescricaoExistenteQuery() {
-        String id = postProdutosAll(TV_SAMSUNG_60, 150000, TV_TELA_AMOLED, 500);
+        String id = postProdutosAll(TV_SAMSUNG_60, 150000, TV_TELA_AMOLED, QUANTIDADE_PRODUTO);
 
         Response response = produtosServerRest.getProdutosQuery(Map.of(DESCRICAO, TV_TELA_AMOLED))
                 .statusCode(SC_OK).log().all()
@@ -177,9 +177,9 @@ public class GetProdutos extends BaseTest {
 
     @Test
     public void campoQuantidadeValidoQuery() {
-        String id = postProdutosAll(TV_SAMSUNG_60, 150000, TV_TELA_AMOLED, 500);
+        String id = postProdutosAll(TV_SAMSUNG_60, 150000, TV_TELA_AMOLED, QUANTIDADE_PRODUTO);
 
-        Response response = produtosServerRest.getProdutosQuery(Map.of(QUANTIDADE, 500))
+        Response response = produtosServerRest.getProdutosQuery(Map.of(QUANTIDADE, QUANTIDADE_PRODUTO))
                 .statusCode(SC_OK).log().all()
                 .extract().response();
 
