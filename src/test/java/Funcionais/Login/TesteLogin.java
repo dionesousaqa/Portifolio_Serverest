@@ -17,8 +17,8 @@ public class TesteLogin extends BaseTest {
         Response response = TestesUtils.getUsuariosLogin();
 
         ObjetosLogin objetosLogin = new ObjetosLogin();
-        objetosLogin.setEmail(response.path("usuarios.email[0]"));
-        objetosLogin.setPassword(response.path("usuarios.password[0]"));
+        objetosLogin.setEmail(response.path(USUARIO_EMAIL_PRIMEIRO));
+        objetosLogin.setPassword(response.path(USUARIO_PSWD_PRIMEIRO));
 
         loginServerRest.postLogin(objetosLogin)
                 .statusCode(SC_OK).log().all()
@@ -43,7 +43,7 @@ public class TesteLogin extends BaseTest {
         Response response = TestesUtils.getUsuariosLogin();
 
         ObjetosLogin objetosLogin = new ObjetosLogin();
-        objetosLogin.setEmail(response.path("usuarios.email[0]"));
+        objetosLogin.setEmail(response.path(USUARIO_EMAIL_PRIMEIRO));
         objetosLogin.setPassword(PSWD_INVALID);
 
         loginServerRest.postLogin(objetosLogin)
@@ -70,7 +70,7 @@ public class TesteLogin extends BaseTest {
         Response response = TestesUtils.getUsuariosLogin();
 
         ObjetosLogin objetosLogin = new ObjetosLogin();
-        objetosLogin.setEmail(response.path("usuarios.email[0]"));
+        objetosLogin.setEmail(response.path(USUARIO_EMAIL_PRIMEIRO));
         objetosLogin.setPassword("");
 
         loginServerRest.postLogin(objetosLogin)

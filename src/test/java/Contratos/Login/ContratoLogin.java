@@ -22,8 +22,8 @@ public class ContratoLogin extends BaseTest{
         Response response = TestesUtils.getUsuariosLogin();
 
         ObjetosLogin objetosLogin = new ObjetosLogin();
-        objetosLogin.setEmail(response.path("usuarios.email[0]"));
-        objetosLogin.setPassword(response.path("usuarios.password[0]"));
+        objetosLogin.setEmail(response.path(USUARIO_EMAIL_PRIMEIRO));
+        objetosLogin.setPassword(response.path(USUARIO_PSWD_PRIMEIRO));
 
         File jsonSchema = new File(SchemaPaths.CONTRATO_LOGIN);
 
